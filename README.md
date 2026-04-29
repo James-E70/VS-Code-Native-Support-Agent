@@ -1,6 +1,6 @@
 # VS-Code-Native-Support-Agent
 
-VS Code native support-agent configuration for investigating CargoWise eRequests and drafting client-facing responses from current incident evidence.
+VS Code native support-agent configuration for investigating CargoWise eRequests and drafting client-facing responses, or internal escalation notes, from current incident evidence.
 
 ## Purpose
 
@@ -11,6 +11,7 @@ The agent is designed to:
 - investigate the issue to the most solved outcome support can reasonably achieve before escalating
 - prefer validated fixes, validated workarounds, validated configuration corrections, or one precise next diagnostic step
 - generate a client-facing response, which is then uploaded to eDocs of the eRequest as an internal file (INT Doc Type)
+- draft an internal escalation note when the incident requires escalation or a documented internal handoff
 
 ## Core Behaviour
 
