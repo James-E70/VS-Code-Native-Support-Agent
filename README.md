@@ -10,7 +10,7 @@ The agent is designed to:
 - review the latest incident text, client updates, and attached evidence
 - investigate the issue to the most solved outcome support can reasonably achieve before escalating
 - prefer validated fixes, validated workarounds, validated configuration corrections, or one precise next diagnostic step
-- generate a client-facing response
+- generate a client-facing response, which is then uploaded to eDocs of the eRequest as an internal file (INT Doc Type)
 
 ## Core Behaviour
 
