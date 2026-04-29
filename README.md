@@ -1,2 +1,67 @@
 # VS-Code-Native-Support-Agent
-An eRequest Support agent that works natively in VS Code
+
+VS Code native support-agent configuration for investigating CargoWise eRequests and drafting client-facing INT responses from current incident evidence.
+
+## Purpose
+
+This repository packages the prompt files and VS Code prompt definition used to run a support-focused agent inside VS Code.
+
+The agent is designed to:
+- review the latest incident text, client updates, and attached evidence
+- investigate the issue to the most solved outcome support can reasonably achieve before escalating
+- prefer validated fixes, validated workarounds, validated configuration corrections, or one precise next diagnostic step
+- generate a client-facing response suitable for an INT note when the workflow requires it
+
+## Core Behaviour
+
+The agent is instructed to:
+- treat every eRequest as a fresh investigation
+- avoid repeating checks already proven by the latest evidence
+- prefer exact error text, Workflow and Tracking events, exported XML, logs, and other machine-verifiable artefacts over generic screenshots when they are more decisive
+- avoid unverified UI paths, fields, or assumptions
+- identify known defects or closed work items directly when the available evidence supports that conclusion
+- keep the response client-facing and ready to send with minimal editing
+
+## Output Standard
+
+The generated response should:
+- start with `Hi <Contact First Name>,`
+- use business-appropriate language with clear paragraph spacing
+- sign off exactly as shown below
+
+```text
+Thank You,
+James
+```
+
+It should also include:
+- a confidence rating from 0 to 5
+- the mandatory AI disclaimer
+- up to 5 similar or related incidents from the last 3 years
+- up to 5 relevant WiseTech Academy links when genuinely relevant
+
+## Repository Contents
+
+- `.github/prompts/support-agent.prompt.md`: VS Code prompt definition for invoking the support agent
+- `Prompt For Support Agent - With eDocs.md`: detailed operating prompt with investigation and response guardrails
+- `SPSS PROMPT.md`: condensed support prompt for senior product support workflows
+- `.vscode/settings.json`: local workspace settings
+- `.gitignore`: excludes generated eRequest response and escalation text artefacts from future tracking
+
+## How To Use In VS Code
+
+1. Open this folder in VS Code.
+2. Open Copilot Chat.
+3. Use the repository prompt in `.github/prompts/support-agent.prompt.md` as the starting instruction for the current incident.
+4. Provide the latest incident text, client updates, and any attached evidence that needs to be reviewed.
+5. Review the drafted response before sending or uploading it to eDocs.
+
+## Operational Notes
+
+- This repository contains prompt and workflow configuration, not application code.
+- Generated incident-specific response files are intentionally ignored by git.
+- Any client-facing output should still be reviewed by a support specialist before use.
+
+## Intended Audience
+
+This repository is intended for colleagues who want a reusable, VS Code native support-agent setup for CargoWise eRequest investigation and response drafting.
