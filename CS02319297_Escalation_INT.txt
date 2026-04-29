@@ -1,0 +1,33 @@
+Internal escalation summary for CS02319297
+
+Issue
+Client reports that an AMS charge is posting into a separate AR invoice on one shipment, resulting in 2 invoices being generated incorrectly. The client advises the AMS charge has the same debtor, invoice type, and currency as the other charges that should post to the same invoice. They also confirmed the issue repeats after reversing and re-entering the AMS charge, and it still occurs when a different user performs the posting.
+
+Evidence reviewed
+- Incident description states AMS posts as 2 invoices incorrectly.
+- For this review, only the JPG files on eDocs were reviewed per user instruction. The 2 DOCX files on eDocs were intentionally ignored for this eRequest.
+- Picture1 to Picture5 are the original client screenshots.
+- Picture6 and Picture7 were supplied after the prior support response.
+- The screenshots show the AMS charge code setup, debtor invoicing setup, and shipment billing context.
+- The screenshots support that the visible debtor invoicing setup and charge setup do not show an obvious standard split reason.
+- Client explicitly states the same shipment still splits when another person posts it, which argues against a user-specific security or operator issue.
+
+Support investigation completed
+- Reviewed the available JPG evidence in staged batches.
+- Cross-checked related incidents and work items for known invoice-splitting behaviour and known JRB defects.
+- Found related references for standard supported split conditions such as Sell Reference, Sell Address, Sell Contact, Credit Terms, Tax ID Posting Group, Sell Invoice Currency, Fixed Place of Supply, Charge Grouping or Roll Up behaviour, and invoice type handling.
+- Did not find an authoritative known defect that cleanly matches this exact AMS-only split scenario from the current evidence set.
+
+Why escalation is required
+- The client has already provided multiple screenshots across the original and follow-up evidence sets.
+- The visible setup in those screenshots does not show a clear supported explanation for why the AMS line is isolated onto its own USD invoice.
+- The behaviour is isolated to one shipment and is reproducible even when posted by another user.
+- Support has exhausted the screenshot-based investigation path for this incident without finding a verified configuration cause.
+- Further progress now requires product-side or deeper technical investigation of the posting logic on the affected shipment, rather than another support-level restatement of standard split conditions.
+
+Recommended escalation focus
+- Compare the AMS charge line against one line that posted to the main invoice on the same shipment at the persisted data level.
+- Confirm whether any hidden or non-obvious posting discriminator exists for that shipment, including line-level billing values and any posting logic differences not visible in the screenshots.
+- Assess whether this is a shipment-specific JRB posting defect.
+
+Prepared by AI-assisted support review.

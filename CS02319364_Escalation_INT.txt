@@ -1,0 +1,35 @@
+Internal escalation summary for CS02319364
+
+Issue
+Client reports that the UpdateInvoicePaymentDetails payment status web service stopped working immediately after upgrade to GP Release CW 2026 Feb 25 Patch 527 26.2.25.527. The same failure occurs in PROD and TST. Their middleware receives HTTP 502 rather than a valid SOAP response, and they advise this is blocking invoice payment updates, causing credit-limit impact and operational blockage.
+
+Evidence reviewed
+- Incident description and full eConversation history.
+- Attached files: http_response (2).txt, raw_request.txt, raw_reply.txt, the customer-facing DOCX guidance file, and both attached PDF escalation summaries.
+- Related incident CS02316759 with the same UpdateInvoicePaymentDetails 502 pattern.
+- Closed work item WI01061461, which is the current authoritative internal reference for this service path after the GP1 .NET 8 change.
+- Additional client wording received by email outside the eRequest: they state the file already supplied is a real failed live case, not a representative sample; they do not have a successful call to compare against; and they want Support either to provide a successful known-good call or to move the issue forward without repeating that request.
+
+Material findings
+- The attached raw_request.txt is a real failed live request according to the client and is not just a reconstructed example.
+- The attached raw_reply.txt and http_response evidence show HTTP 502 behaviour rather than a SOAP fault.
+- WI01061461 states that, after the GP1 .NET 8 framework change, malformed requests that were previously tolerated can now be rejected before reaching WiseTech-written code.
+- The customer-facing DOCX and work item post-mortem focus on malformed XML as the known cause pattern, especially unquoted attributes.
+- The specific raw_request.txt attached on this incident appears visually well-formed XML, which means support cannot confidently tell the client that the supplied failed live request already proves the same malformed-attribute pattern without a deeper authoritative comparison.
+- The two attached PDF escalation documents are duplicate customer escalation summaries and do not add further technical evidence.
+
+Why escalation is required
+- Support has already reviewed the supplied failed live payload and the related authoritative work item.
+- The previous support instruction asking the client to compare a successful call with a failed call is not workable in this case because the client says they currently have no successful calls after the upgrade.
+- Support does not currently hold the official sample C# client or a support-approved known-good wire example in this incident context.
+- The remaining blocker is now product-level confirmation of one of two possibilities:
+1. The failed live payload already supplied is sufficient to identify the request-format mismatch against the expected contract.
+2. Product must provide the official sample C# client or an authoritative sample request derived from it so Support can give the client a valid comparison baseline.
+
+Request to Product team
+- Please review the attached failed live request already supplied on CS02319364 and confirm whether it is sufficient for you to compare against the expected UpdateInvoicePaymentDetails request structure for the post-upgrade service.
+- If the supplied failed live request is enough, please identify the exact mismatch in the request structure, SOAP version, header, namespace usage, or other request-format detail so Support can provide a precise corrective response.
+- If the supplied failed live request is not enough, please provide the official CargoWise sample C# client for UpdateInvoicePaymentDetails, or a client-safe authoritative sample request generated from it, so Support can send the customer a known-good example for comparison.
+- If there is already enough evidence on file for Product to run the comparison directly, please proceed with that comparison rather than asking the client again for a successful call they do not have.
+
+Prepared by AI-assisted support review.

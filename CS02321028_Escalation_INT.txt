@@ -1,0 +1,47 @@
+CS02321028 - Full Internal Escalation Summary
+
+Issue summary:
+Client Lori Ann Palma reported that entry lines are rejecting with Q16 Quota HTS 1/HTS 2 Mismatch and stated there is no quota for the entry. Initial support guidance assumed the issue was an incorrect quota or non-quota tariff pairing. That conclusion has now been falsified by the latest client update and by additional same-day incidents showing the same reject pattern on other non-quota apparel HTS lines.
+
+Current client position:
+- Client explicitly advised that the filed HTSUS numbers are correct.
+- Client explicitly advised that the goods are not subject to quota.
+- Client believes the reject is a mistake rather than a filing setup problem.
+
+Incident chronology:
+- CS02321028 was initially reviewed as a single-case Q16 reject.
+- First support response suggested the Chapter 1 tariff might need to be changed to a non-quota or over-quota treatment.
+- Client then replied that the HTSUS numbers are correct and are not subject to quota.
+- A second incident, CS02321053, was reviewed and showed the same Q16 reject family on different apparel HTS lines.
+- A third incident, CS02321097, was logged the same day with additional apparel HTS lines rejecting with Q16.
+- This changed the working conclusion from client data issue to broader product-side or compliance-side investigation.
+
+Evidence already provided and reviewed:
+- CS02321028 screenshot shows apparel HTS line 6110.20.1024 filed with 9903.03.01 and rejected with Q16 Quota HTS 1/HTS 2 Mismatch.
+- CS02321053 shows the same reject on line items 003 and 004, with 6110.10.1060 and 6203.49.6020 paired with 9903.03.01.
+- CS02321053 attached rejection summary shows disposition 998 Transaction Data Rejected with Q16 on those affected lines.
+- CS02321097 was logged the same day with Q16 against additional apparel HTS lines 6204.63.1110, 6204.33.5010, and 6110.30.3020.
+- Internal history for CS02249270 confirms the 9903.03.01 to 9903.03.11 Section 122 tariff set was recently updated in CargoWise.
+
+Observed common pattern:
+- Same-day occurrence across multiple customers.
+- Same reject family: Q16 Quota HTS 1/HTS 2 Mismatch.
+- Repeated association with 9903.03.xx, specifically 9903.03.01 in the reviewed evidence.
+- Affected Chapter 1 tariffs are apparel classifications that the reporting clients say are not quota lines.
+- The pattern is broader than one client, one declaration, or one tariff line.
+
+Why this should be escalated:
+- The newer evidence disproves the earlier support assumption that CS02321028 was simply an incorrect quota or non-quota tariff pairing.
+- Multiple independent clients are showing the same reject family within the same day, which is consistent with a broader mapping, tariff-parenting, validation, or recent tariff-data issue.
+- Internal precedent already shows recent activity around the new 9903.03.xx Section 122 tariff stream, which makes a recent data or rule interaction plausible.
+- Support no longer has a validated workaround that can be safely recommended without risking incorrect filing guidance.
+
+Requested review from Product or Compliance:
+- Confirm whether 9903.03.01 or the wider 9903.03.xx Section 122 tariff set is incorrectly linked or validated against non-quota apparel Chapter 1 HTS lines.
+- Confirm whether a recent tariff-table, parent-tariff, HTS 1 or HTS 2 relationship, or ACE output rule change could now be causing false Q16 rejects.
+- Confirm whether there is a safe filing workaround, a data correction, or a build-specific fix path.
+- Confirm whether other open incidents should be linked to the same issue stream.
+
+Support impact:
+- Earlier client-facing guidance on changing the tariff treatment has already been superseded.
+- A corrected client response has been sent advising that the issue is under wider review and that the client should not change classification purely to work around the reject unless separately confirmed by their ABI representative.
