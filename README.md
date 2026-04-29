@@ -19,6 +19,7 @@ The agent is instructed to:
 - treat every eRequest as a fresh investigation
 - avoid repeating checks already proven by the latest evidence
 - prefer exact error text, Workflow and Tracking events, exported XML, logs, and other machine-verifiable artefacts over generic screenshots when they are more decisive
+- treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and surface `FILES COULD NOT BE PARSED: ...` in the chat summary
 - avoid unverified UI paths, fields, or assumptions
 - identify known defects or closed work items directly when the available evidence supports that conclusion
 - keep the response client-facing and ready to send with minimal editing
@@ -61,6 +62,7 @@ It should also include:
 
 - This repository contains prompt and workflow configuration, not application code.
 - Generated incident-specific response files are intentionally ignored by git.
+- Partial attachment review must not be treated as complete evidence review; if any attachment cannot be parsed, the warning must be surfaced in chat before drafting the final conclusion.
 - Any client-facing output should still be reviewed by a support specialist before use.
 
 ## Intended Audience

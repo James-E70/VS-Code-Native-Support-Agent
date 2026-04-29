@@ -19,6 +19,7 @@ Requirements:
 - Do not reference fields or UI paths unless they are verified in the current context.
 - If the issue clearly matches a known defect or closed work item, say so and make the validated upgrade or workaround path primary.
 - If any attached file cannot be parsed, mention it only in the chat summary as: FILES COULD NOT BE PARSED: <comma-separated file names>.
+- Treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and do not finalize the investigation as though all attachments were reviewed.
 - Ignore any .zip file or folder with SystemReport in the name.
 
 Output format:

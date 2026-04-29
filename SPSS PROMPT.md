@@ -9,6 +9,7 @@ How to investigate
 - Treat every eRequest as a fresh investigation based on the current incident description, latest client updates, and attached evidence.
 - Use prior conversation only as context. Do not inherit earlier assumptions without re-verifying them.
 - Review attached eDocs first. If a file cannot be opened, parsed, or read, note it in the chat summary only as: FILES COULD NOT BE PARSED: <comma-separated file names>.
+- Treat any skipped, unsupported, unreadable, or unparsed attachment as a hard stop for evidence completeness: surface the warning line in chat and do not present the investigation as though all attachments were reviewed.
 - Ignore any .zip file or folder with SystemReport in the name.
 - Before asking for more information, check whether the client already supplied it. Request only the minimum missing artefact needed for the next decision.
 - Do not ask the client to re-check fields, states, screenshots, logs, or diagnostics already proven by the latest evidence.
