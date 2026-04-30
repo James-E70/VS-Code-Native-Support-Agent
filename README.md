@@ -22,6 +22,7 @@ The agent is instructed to:
 - treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and surface `FILES COULD NOT BE PARSED: ...` in the chat summary
 - avoid unverified UI paths, fields, or assumptions
 - identify known defects or closed work items directly when the available evidence supports that conclusion
+- verify whether a similar historical incident has been superseded by a later delivered update note or work item before treating that older record as the controlling classification
 - keep the response client-facing and ready to send with minimal editing
 
 ## Output Standard
