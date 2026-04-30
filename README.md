@@ -47,6 +47,7 @@ It should also include:
 - `.github/prompts/support-agent.prompt.md`: VS Code prompt definition for invoking the support agent
 - `Prompt For Support Agent - With eDocs.md`: detailed operating prompt with investigation and response guardrails
 - `SPSS PROMPT.md`: condensed support prompt for senior product support workflows
+- `support-agent-workflow.md`: tracked workflow notes that mirror repository-scoped operating guardrails
 - `.vscode/settings.json`: local workspace settings
 - `.gitignore`: excludes generated eRequest response and escalation text artefacts from future tracking
 
@@ -63,6 +64,7 @@ It should also include:
 - This repository contains prompt and workflow configuration, not application code.
 - Generated incident-specific response files are intentionally ignored by git.
 - Partial attachment review must not be treated as complete evidence review; if any attachment cannot be parsed, the warning must be surfaced in chat before drafting the final conclusion.
+- Client-facing steps must be feasibility-checked for the client context before they are suggested; do not assume WiseCloud users can access an in-session browser, shell, or remote desktop unless that capability is verified.
 - Any client-facing output should still be reviewed by a support specialist before use.
 
 ## Intended Audience
