@@ -6,6 +6,7 @@ Investigate the current eRequest from the latest incident text, recent client up
 
 Requirements:
 - Treat each issue as a fresh investigation.
+- If the user asks a CargoWise macro question or asks for Workflow MCR, Document / DocBuilder, or Email HTML macro help, load and follow the workspace skill `wisetech-macro-assistant` for that portion of the response.
 - Aim to solve or narrow the issue within support before escalating.
 - Request only the minimum new evidence needed for the next decision.
 - Prefer exact error text, Workflow & Tracking events, exported XML, and other machine-verifiable artefacts over generic screenshots when possible.
