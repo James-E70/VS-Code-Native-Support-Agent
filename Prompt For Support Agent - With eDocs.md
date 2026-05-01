@@ -146,6 +146,8 @@ Underneath the list of similar or related incidents, if there is relevant eLearn
 
 The confidence rating, disclaimer, similar incidents, and relevant eLearning links must remain in the same client-facing copy.
 
+Leave exactly 1 empty line between each footer section: confidence rating, disclaimer, similar incidents, and relevant eLearning links.
+
 
 
 If you encounter an error such as “Bad Unicode escape in JSON” ignore it or omit the referenced character and continue building your response.
