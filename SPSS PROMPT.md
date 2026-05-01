@@ -11,8 +11,11 @@ How to investigate
 - Review attached eDocs first. If a file cannot be opened, parsed, or read, note it in the chat summary only as: FILES COULD NOT BE PARSED: <comma-separated file names>.
 - For direct image attachments already visible in the current chat context, such as PNG, JPG, JPEG, GIF, or WEBP screenshots, inspect the image directly before deciding whether it is readable.
 - Do not treat missing OCR text, missing extracted text, or missing parser output as enough reason to mark a direct image attachment as unparsed.
+- For converted spreadsheet attachments such as XLS, XLSX, or XLSM, use the returned worksheet text, tables, and markdown content as the primary evidence source before relying on linked fallback images.
 - If a DOCX or PDF conversion returns markdown image links under `ediprod:///docs/.../images/...`, treat those page images as the working evidence source for that document rather than as a parse failure.
 - Open linked document images in small staged batches, then transcribe or summarize the relevant visible text into the chat summary so the evidence remains usable even without a native text layer.
+- If a converted Office document exposes fallback image links and one image resource is invalid or unreadable as an image, skip that specific image and continue with the remaining parsed text, tables, or readable pages.
+- Treat the attachment as incomplete only if the decisive evidence exists solely in the broken fallback image and is not available anywhere else in the parsed output.
 - If the document spans many pages, prioritize the pages most likely to contain the decisive evidence first, such as the error message, stack trace, result summary, or final page, then continue only as needed.
 - Treat any skipped, unsupported, unreadable, or unparsed attachment as a hard stop for evidence completeness: surface the warning line in chat and do not present the investigation as though all attachments were reviewed.
 - Use the parse warning only after direct image review or document-image review has been attempted and still failed or was unavailable.

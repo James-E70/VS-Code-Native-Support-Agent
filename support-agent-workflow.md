@@ -6,8 +6,10 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 - For direct image attachments already visible in the chat context, inspect the image itself before deciding whether the evidence is readable.
 - Do not treat missing OCR text, missing extracted text, or missing parser output as sufficient reason to mark a direct image attachment as unparsed.
+- For converted spreadsheets such as XLS, XLSX, or XLSM, treat worksheet text, tables, and markdown output as the primary evidence source before relying on linked fallback images.
 - If a DOCX or PDF conversion returns markdown image links under `ediprod:///docs/.../images/...`, treat that output as a usable extraction path and open those linked images before deciding the document could not be reviewed.
 - Review linked document images in small staged batches and summarize findings between batches instead of pulling every page at once.
+- If a converted Office attachment exposes fallback image links and one linked image appears invalid or unreadable as an image resource, skip that image, continue with the remaining parsed content, and only treat the file as incomplete if the decisive evidence exists solely in the broken image.
 - When a DOCX or PDF yields only linked page images, treat those images as the primary evidence source for that document during the investigation.
 - Transcribe or summarize the relevant visible text from reviewed page images into the working notes or chat summary so image-only documents remain usable without native extracted text.
 - For long multi-page documents, prioritize the pages most likely to contain decisive evidence first, then continue in staged batches only as needed.

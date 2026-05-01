@@ -21,9 +21,11 @@ The agent is instructed to:
 - prefer exact error text, Workflow and Tracking events, exported XML, logs, and other machine-verifiable artefacts over generic screenshots when they are more decisive
 - inspect direct image attachments that are already visible in chat before deciding whether they are readable
 - avoid treating missing OCR text, missing extracted text, or missing parser output as proof that a direct image attachment could not be reviewed
+- treat converted spreadsheet text and tables as primary evidence before relying on linked fallback images
 - treat DOCX or PDF conversions that expose `ediprod:///docs/.../images/...` links as reviewable document-image output and open those linked images before classifying the source file as unparsed
 - treat linked page images from image-only DOCX or PDF conversions as the working evidence source for that document
 - transcribe or summarize relevant visible text from reviewed page images so the investigation can proceed without a native text layer
+- if one linked fallback image from a converted Office attachment is invalid, skip that image and continue with the remaining parsed output unless the decisive evidence exists only in the broken image
 - treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and surface `FILES COULD NOT BE PARSED: ...` in the chat summary
 - avoid unverified UI paths, fields, or assumptions
 - identify known defects or closed work items directly when the available evidence supports that conclusion
