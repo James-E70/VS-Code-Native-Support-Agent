@@ -34,3 +34,10 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 - Keep this file aligned with the working support-agent prompt and any repository-scoped workflow memory used during investigations.
 - If a workflow rule materially changes support behaviour, update this file in the same change set so the repository remains the source of truth.
+
+## Response Footer Formatting
+
+- The WiseTech Academy footer section must be headed exactly: `Relevant WiseTech Academy links:`.
+- Each academy item must include both the module title and URL on the same line using this format: `- <module title> - <url>`.
+- Do not output bare wisetechacademy.com URLs without titles.
+- If no genuinely relevant academy content is available, state that explicitly under the same heading instead of listing generic links.

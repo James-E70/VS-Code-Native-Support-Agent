@@ -142,11 +142,17 @@ Underneath the disclaimer, list up to 5 similar or related incidents that were c
 
 
 
-Underneath the list of similar or related incidents, if there is relevant eLearning content available for the specific topic, then provide a list of links from wisetechacademy.com to the content that is relevant - prioritise the most relevant content and limit the number of links to a maximum of 5, although you can provide less than 5 if that would limit the links only to those that are most specific to the question being asked. Provide these in the format of content title and then URL.
+Underneath the list of similar or related incidents, add a footer section headed exactly: Relevant WiseTech Academy links:
 
-The confidence rating, disclaimer, similar incidents, and relevant eLearning links must remain in the same client-facing copy.
+If there is relevant eLearning content available for the specific topic, provide up to 5 wisetechacademy.com items that are genuinely relevant, prioritised by specificity. Each item must use this exact per-line format: - <content title> - <url>
 
-Leave exactly 1 empty line between each footer section: confidence rating, disclaimer, similar incidents, and relevant eLearning links.
+Do not output bare academy URLs without the corresponding content title.
+
+If no genuinely relevant academy content is identified, state that explicitly under the same heading instead of listing generic links.
+
+The confidence rating, disclaimer, similar incidents, and Relevant WiseTech Academy links section must remain in the same client-facing copy.
+
+Leave exactly 1 empty line between each footer section: confidence rating, disclaimer, similar incidents, and Relevant WiseTech Academy links.
 
 
 
