@@ -19,6 +19,11 @@ The agent is instructed to:
 - treat every eRequest as a fresh investigation
 - avoid repeating checks already proven by the latest evidence
 - prefer exact error text, Workflow and Tracking events, exported XML, logs, and other machine-verifiable artefacts over generic screenshots when they are more decisive
+- inspect direct image attachments that are already visible in chat before deciding whether they are readable
+- avoid treating missing OCR text, missing extracted text, or missing parser output as proof that a direct image attachment could not be reviewed
+- treat DOCX or PDF conversions that expose `ediprod:///docs/.../images/...` links as reviewable document-image output and open those linked images before classifying the source file as unparsed
+- treat linked page images from image-only DOCX or PDF conversions as the working evidence source for that document
+- transcribe or summarize relevant visible text from reviewed page images so the investigation can proceed without a native text layer
 - treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and surface `FILES COULD NOT BE PARSED: ...` in the chat summary
 - avoid unverified UI paths, fields, or assumptions
 - identify known defects or closed work items directly when the available evidence supports that conclusion
@@ -64,7 +69,9 @@ It should also include:
 
 - This repository contains prompt and workflow configuration, not application code.
 - Generated incident-specific response files are intentionally ignored by git.
-- Partial attachment review must not be treated as complete evidence review; if any attachment cannot be parsed, the warning must be surfaced in chat before drafting the final conclusion.
+- Partial attachment review must not be treated as complete evidence review; if any attachment still cannot be reviewed after direct image review or document-image review, the warning must be surfaced in chat before drafting the final conclusion.
+- Image-only DOCX or PDF evidence may arrive as a converted markdown stub plus linked page images; those linked `ediprod:///docs/.../images/...` files are part of the review path and should be opened in staged batches before requesting re-exported screenshots.
+- For image-only document conversions, the agent-side workaround is to use the linked page images as the evidence source, summarize the relevant visible text into working notes, and request a better-format export only if the page images themselves remain unreadable.
 - Client-facing steps must be feasibility-checked for the client context before they are suggested; do not assume WiseCloud users can access an in-session browser, shell, or remote desktop unless that capability is verified.
 - Any client-facing output should still be reviewed by a support specialist before use.
 

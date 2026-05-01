@@ -2,6 +2,18 @@
 
 This file contains repository-tracked workflow guardrails that should remain aligned with the local support-agent operating rules.
 
+## Attachment Review Guardrails
+
+- For direct image attachments already visible in the chat context, inspect the image itself before deciding whether the evidence is readable.
+- Do not treat missing OCR text, missing extracted text, or missing parser output as sufficient reason to mark a direct image attachment as unparsed.
+- If a DOCX or PDF conversion returns markdown image links under `ediprod:///docs/.../images/...`, treat that output as a usable extraction path and open those linked images before deciding the document could not be reviewed.
+- Review linked document images in small staged batches and summarize findings between batches instead of pulling every page at once.
+- When a DOCX or PDF yields only linked page images, treat those images as the primary evidence source for that document during the investigation.
+- Transcribe or summarize the relevant visible text from reviewed page images into the working notes or chat summary so image-only documents remain usable without native extracted text.
+- For long multi-page documents, prioritize the pages most likely to contain decisive evidence first, then continue in staged batches only as needed.
+- If linked page images exist but the text is still unreadable, request only the minimum better-format follow-up needed, such as higher-resolution page exports or a searchable OCR copy.
+- Use the `FILES COULD NOT BE PARSED: ...` warning only after direct image review or document-image review has been attempted and still failed or remained unavailable.
+
 ## Verified Action Guardrails
 
 - Do not ask a client to perform any step unless the step itself is verified to be possible for that client context.
