@@ -49,3 +49,4 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - In client-facing responses, present supported product behavior as a direct statement of how the system works based on the current evidence and authoritative sources.
 - Do not phrase client-facing conclusions as being confirmed by similar incidents, prior cases, or support precedents.
 - Similar incidents may still be listed in the required footer, but they should not be used as the stated basis for the main response wording.
+- When citing any Update Note or WiseTech Academy content in the body of a client-facing response, always include the direct link inline in the same sentence using this format: `<title or description> - <url>`.

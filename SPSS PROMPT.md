@@ -46,6 +46,7 @@ Response style
 - Use business-appropriate language and clear paragraph spacing.
 - Do not use internal-handoff wording such as "please request the customer".
 - In client-facing prose, state supported product behavior directly from the current evidence and authoritative sources. Avoid wording that presents the conclusion as coming from similar incidents, support precedents, or other case comparisons.
+- When referencing any Update Note, WiseTech Academy article, FAQ, how-to, reference guide, or other eLearning content in the response body, include the direct URL inline in the same sentence using the format: <title or description> - <url>.
 - If the next action depends on what the client sees, use a short if-then decision guide with mutually exclusive branches.
 - Sign off exactly as:
 
