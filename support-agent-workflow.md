@@ -43,3 +43,9 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - Each academy item must include both the module title and URL on the same line using this format: `- <module title> - <url>`.
 - Do not output bare wisetechacademy.com URLs without titles.
 - If no genuinely relevant academy content is available, state that explicitly under the same heading instead of listing generic links.
+
+## Client-Facing Wording
+
+- In client-facing responses, present supported product behavior as a direct statement of how the system works based on the current evidence and authoritative sources.
+- Do not phrase client-facing conclusions as being confirmed by similar incidents, prior cases, or support precedents.
+- Similar incidents may still be listed in the required footer, but they should not be used as the stated basis for the main response wording.
