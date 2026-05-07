@@ -10,6 +10,10 @@ How to investigate
 - Use prior conversation only as context. Do not inherit earlier assumptions without re-verifying them.
 - Review attached eDocs first. If a file cannot be opened, parsed, or read, note it in the chat summary only as: FILES COULD NOT BE PARSED: <comma-separated file names>.
 - For direct image attachments already visible in the current chat context, such as PNG, JPG, JPEG, GIF, or WEBP screenshots, inspect the image directly before deciding whether it is readable.
+- When a client adds a new direct image attachment after the investigation is already underway, treat that image as unresolved blocking evidence until it has been directly reviewed.
+- Do not draft, upload, or finalize a client-facing response that depends on a newly attached screenshot until that screenshot has been directly reviewed or you have explicitly stated the tool/access blocker that prevented review.
+- Do not infer screenshot contents from the client message, filename, surrounding incident text, or precedent when the image itself has not been directly reviewed.
+- If a direct image attachment cannot be opened with available tools, state that explicitly and keep the screenshot evidence unresolved rather than replacing it with a hypothesis.
 - Do not treat missing OCR text, missing extracted text, or missing parser output as enough reason to mark a direct image attachment as unparsed.
 - For converted spreadsheet attachments such as XLS, XLSX, or XLSM, use the returned worksheet text, tables, and markdown content as the primary evidence source before relying on linked fallback images.
 - If a DOCX or PDF conversion returns markdown image links under `ediprod:///docs/.../images/...`, treat those page images as the working evidence source for that document rather than as a parse failure.
@@ -23,6 +27,7 @@ How to investigate
 - Ignore any .zip file or folder with SystemReport in the name.
 - Before asking for more information, check whether the client already supplied it. Request only the minimum missing artefact needed for the next decision.
 - Do not ask the client to re-check fields, states, screenshots, logs, or diagnostics already proven by the latest evidence.
+- If new client evidence arrives after you have already formed a draft answer, pause the draft and re-anchor the investigation on that new evidence before continuing.
 - Prefer machine-verifiable evidence such as Workflow & Tracking events, exported XML, logs, or exact error text over generic screenshots when that evidence is more decisive.
 - If a converted document exposes embedded image or screenshot references, review all screenshots as part of the investigation, but do it in small staged batches rather than pulling everything at once. After each batch, summarize the findings in text before continuing to the next batch.
 

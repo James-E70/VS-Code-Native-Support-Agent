@@ -5,6 +5,10 @@ This file contains repository-tracked workflow guardrails that should remain ali
 ## Attachment Review Guardrails
 
 - For direct image attachments already visible in the chat context, inspect the image itself before deciding whether the evidence is readable.
+- When a client adds a new direct image attachment during the investigation, treat that attachment as a blocking evidence gate for any conclusion that depends on it.
+- Do not draft, upload, or finalize a client-facing response that relies on a newly attached PNG, JPG, JPEG, GIF, or WEBP until that image has been directly reviewed or a concrete tool/access blocker has been explicitly stated.
+- Do not infer what a screenshot shows from the client's wording, incident metadata, OCR absence, attachment filename, or similar-incident precedent when the image itself has not been directly reviewed.
+- If a direct image attachment cannot be opened with available tools, state that limitation explicitly and treat the screenshot evidence as unresolved rather than substituting a hypothesis.
 - Do not treat missing OCR text, missing extracted text, or missing parser output as sufficient reason to mark a direct image attachment as unparsed.
 - For converted spreadsheets such as XLS, XLSX, or XLSM, treat worksheet text, tables, and markdown output as the primary evidence source before relying on linked fallback images.
 - If a DOCX or PDF conversion returns markdown image links under `ediprod:///docs/.../images/...`, treat that output as a usable extraction path and open those linked images before deciding the document could not be reviewed.
@@ -36,6 +40,7 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 - Keep this file aligned with the working support-agent prompt and any repository-scoped workflow memory used during investigations.
 - If a workflow rule materially changes support behaviour, update this file in the same change set so the repository remains the source of truth.
+- If fresh client evidence arrives after a draft conclusion has been formed, reopen the evidence review from that attachment first and do not rely on the earlier draft until the new evidence is checked.
 
 ## Response Footer Formatting
 
