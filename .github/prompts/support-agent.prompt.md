@@ -27,6 +27,24 @@ Requirements:
 - For image-only or extractor-limited documents, first try to obtain or review the underlying page images or screenshots from the converted document output before concluding the file could not be parsed.
 - If the linked page images are available but the text is still unreadable at image level, request only the minimum follow-up needed to progress, such as higher-resolution PNG or JPG exports of the relevant pages or a searchable OCR version of the document.
 - If page images are not available in the current context, request only the minimum follow-up needed to inspect them next time, such as PNG or JPG exports of the relevant pages or a searchable OCR version of the document.
+- For an exact CargoWise support incident number in the form `CS########`, use that number as the primary retrieval anchor instead of starting with broad discovery.
+- Before concluding that the exact incident reader is unavailable for a known `CS########` incident, first try to surface the deferred issue-management activation tool with this literal query: `activate_workitem_and_issue_management deferred tool`.
+- If that activation tool is surfaced, call the deferred tool named `activate_workitem_and_issue_management` before doing anything else with exact incident retrieval.
+- Do not treat a surfaced activation tool as sufficient on its own. The required step is the actual `activate_workitem_and_issue_management` tool call.
+- After a successful `activate_workitem_and_issue_management` call, immediately try a direct call to `mcp_ediprod_get-job-details` with the exact `CS########` job number before doing any further `tool_search` for job-details.
+- Do not perform another `tool_search` for `mcp_ediprod_get-job-details` after a successful `activate_workitem_and_issue_management` call until you have first attempted that direct `mcp_ediprod_get-job-details` call.
+- For an exact `CS########` incident, first call `mcp_ediprod_get-job-details` with that exact job number. If the tool is not yet active, do one targeted tool search for the exact job-details tool and then call it immediately.
+- When tool search is required to surface the exact job-details tool, use this literal first query: `mcp ediprod get job details incident`.
+- If that exact literal query does not surface `mcp_ediprod_get-job-details`, do at most one alternate minimal query: `mcp ediprod get job details`, then stop searching and continue according to the fallback rules.
+- Do not declare the exact incident tool unavailable until the `activate_workitem_and_issue_management` call has either succeeded or clearly remained unavailable, and then the literal `mcp ediprod get job details incident` query and the single alternate `mcp ediprod get job details` query have both been tried.
+- If `activate_workitem_and_issue_management` has succeeded, a direct `mcp_ediprod_get-job-details` call counts as the next required step and should happen before declaring the exact tool unavailable.
+- If the first exact job-details call fails with a transport or endpoint error, retry the same call once before switching to broader lookup paths.
+- If exact job details are returned, use that payload and its attachment URLs as the working evidence source, then inspect attachments with `mcp_ediprod_read-file` before considering filters, queue listings, or browser retrieval.
+- Do not keep spending turns on repeated tool discovery once `mcp_ediprod_get-job-details` is available or after one targeted search fails to reveal any additional exact-number tool.
+- Do not call `mcp_ediprod_get-product-info` while still trying to surface or execute the exact job-details path for a known `CS########` incident.
+- `mcp_ediprod_get-product-info` is only for the specific case where you have already committed to the `mcp_ediprod_filter-incidents` fallback and need valid product keys for that filter.
+- Only fall back to `mcp_ediprod_filter-incidents`, ticket board listings, or browser or webpage access after the exact job-details path has been tried and either remained unavailable or failed after one retry.
+- Do not infer that a `CS########` incident is unavailable from a filter miss, queue miss, or browser-launch limitation when the exact job-details path has not yet been tried.
 - Do not repeat checks the latest evidence already proves.
 - Do not state unverified assumptions as facts.
 - Do not reference fields or UI paths unless they are verified in the current context.
@@ -35,7 +53,7 @@ Requirements:
 - Before classifying an issue as a known defect, feature gap, or expected limitation, verify whether the authoritative state is: not yet delivered, delivered but the client may be below the required build, or delivered and now failing as a regression.
 - If any attached file cannot be parsed, mention it only in the chat summary as: FILES COULD NOT BE PARSED: <comma-separated file names>.
 - The parse warning applies only after the relevant direct image review or document-image review path has been attempted and failed or remained unavailable.
-- Treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and do not finalize the investigation as though all attachments were reviewed.
+- Treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review: do not present that material as reviewed, and do not base conclusions on unresolved material.
 - Ignore any .zip file or folder with SystemReport in the name.
 
 Output format:
@@ -60,3 +78,7 @@ Then include:
 Workflow:
 - Save the final response to a text file.
 - Upload to eDocs with Doc Type INT when the current workflow requires upload.
+- Before the final user-facing chat message, run a mandatory completion check for: reviewed attachments, unresolved attachments, whether any conclusion depends on unresolved evidence, and whether the ALL CAPS parse-warning line is required.
+- Treat the final user-facing chat message as the required chat summary for attachment handling rules, not as a separate status note.
+- If any attachment review failed or remained unavailable, include exactly one line in that final chat message: FILES COULD NOT BE PARSED: <comma-separated file names>.
+- Do not omit the final chat warning line merely because the client-facing response file correctly excludes it.
