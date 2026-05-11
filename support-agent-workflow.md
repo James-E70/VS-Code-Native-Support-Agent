@@ -4,6 +4,8 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 ## Attachment Review Guardrails
 
+- Before drafting any client-facing response, every eDocs file currently listed on the incident must have had a read attempt via `mcp_ediprod_read-file`. This applies to all files in the attached documents table — not only those added in the most recent client update. When a client adds new attachments, read them in addition to, not instead of, all previously existing attachments.
+- Never ask a client to check, confirm, or provide information that is already visible in any attachment currently on the incident, whether or not that attachment was added recently.
 - For direct image attachments already visible in the chat context, inspect the image itself before deciding whether the evidence is readable.
 - When a client adds a new direct image attachment during the investigation, treat that attachment as a blocking evidence gate only for conclusions that depend on it.
 - Do not draft, upload, or finalize a client-facing response that relies on a newly attached PNG, JPG, JPEG, GIF, or WEBP until that image has been directly reviewed or a concrete tool/access blocker has been explicitly stated.

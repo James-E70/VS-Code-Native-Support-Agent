@@ -21,6 +21,8 @@ version: 1.0.0
 
 - Treat every eRequest as a fresh investigation based on the current incident description, latest client updates, and attached evidence.
 - Use prior conversation only as context. Do not inherit earlier assumptions without re-verifying them.
+- Before drafting any response, review every eDocs file currently listed on the incident — not only those added in the most recent client update. When a client adds new attachments, read them in addition to, not instead of, the full existing attachment list. Every file in the incident's attached documents table must have a read attempt recorded before the draft begins.
+- Never ask a client to check, confirm, or provide information that is already visible in any attachment currently on the incident, whether or not that attachment was added recently.
 - Review attached evidence first. If a file cannot be opened, parsed, or read, note it in the working summary as: FILES COULD NOT BE PARSED: <comma-separated file names>.
 - For direct image attachments already visible in the current context (PNG, JPG, JPEG, GIF, WEBP), inspect the image directly before deciding whether it is readable.
 - When a client adds a new direct image attachment after investigation is already underway, treat that image as blocking evidence only for conclusions that rely on it until it has been directly reviewed.
