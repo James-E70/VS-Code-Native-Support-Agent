@@ -40,6 +40,8 @@ version: 1.0.0
 - Before concluding that required evidence is missing, check whether the client already supplied it in the existing thread.
 - Request only the minimum missing artefact needed for the next decision.
 - Do not ask the client to re-check fields, states, screenshots, logs, or diagnostics already proven by the latest evidence.
+- Before finalising recommended next steps, do a consistency pass: if a finding has already been stated as confirmed in the response body (e.g. "the events log does not contain X, which confirms Y"), the next steps must not ask the client to check for that same thing. Next steps must begin from where the confirmed finding ends, not repeat the verification that has already been done.
+- Before finalising if/then next steps, enumerate all logical states the client could be in that explain the confirmed finding. For each state that has a known self-service fix or documented resolution path, provide that fix directly with the relevant guide link — do not default to requesting more evidence when the fix is already known. Only ask for evidence in the branch where the resolution genuinely depends on information that is not yet available.
 - If new client evidence arrives after a draft answer has been formed, re-check whether that evidence changes any conclusion that depends on it before finalizing.
 - Prefer machine-verifiable evidence (Workflow & Tracking events, exported XML, logs, exact error text) over generic screenshots when that evidence is more decisive.
 
