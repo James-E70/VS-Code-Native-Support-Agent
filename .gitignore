@@ -1,4 +1,5 @@
 # Generated eRequest response and escalation artifacts
-CS*_Response_*.txt
-CS*_Escalation_*.txt
+CS*_response*
+CS*_Response*
+CS*_Escalation_*
 shareable-prompts/Triage_eRequest.prompt.md
