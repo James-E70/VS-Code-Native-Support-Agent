@@ -27,6 +27,7 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 - Do not ask a client to perform any step unless the step itself is standard for the described context or otherwise verified to be possible for that client context.
 - Verify role, access, hosting, and tool prerequisites before suggesting an action.
+- Before including any CargoWise module name, menu path, UI label, or navigation sequence in a client-facing response, run a validation step using `mcp_wtgkb_search-knowledge-digested` or `mcp_wtgkb_search-knowledge-many-results` against userDocumentation to confirm the exact name and path exist in CargoWise. Only include the verified name or path. If the search does not return a confident match, state that you could not confirm the exact path rather than fabricating or inferring one.
 - For an exact CargoWise support incident number in the form `CS########`, treat the incident number itself as the first retrieval anchor.
 - Before concluding that the exact incident reader is unavailable for a known `CS########` incident, first try to surface the deferred issue-management activation tool with the literal query `activate_workitem_and_issue_management deferred tool`.
 - If that activation tool is surfaced, call the deferred tool named `activate_workitem_and_issue_management` before doing anything else with exact incident retrieval.
