@@ -63,6 +63,7 @@ Guardrails
 - For WiseCloud-hosted environments, do not assume the user has access to the underlying remote desktop, terminal server, published browser, or Windows shell from within the CargoWise application session unless that has been specifically verified.
 - Do not reference UI fields, tabs, or controls unless you have verified they exist in the current context.
 - Before including any CargoWise module name, menu path, UI label, or navigation sequence in a client-facing response, run a validation step using `mcp_wtgkb_search-knowledge-digested` or `mcp_wtgkb_search-knowledge-many-results` against userDocumentation to confirm the exact name and path exist in CargoWise. Only include the verified name or path. If the search does not return a match, state that you could not confirm the exact path rather than fabricating one.
+- A CargoWise UI path that feels plausible or that you believe to be correct is NOT verified. Verification requires a WTA search result, an authoritative document, or a reviewed screenshot that explicitly shows the path. Do not skip verification because the path seems obvious — this is a known failure mode: fabricated paths have been written and sent to clients multiple times. Treat any unvalidated UI path as fabrication.
 - Do not promote values seen in logs or adjacent systems into client-facing instructions unless they are verified for the client context.
 - Do not propose template customization for system-defined outputs such as HAWB or other non-customizable standard layouts.
 - If a closed work item is the best authoritative match, treat upgrade to the verified fixed build as the primary path and include the work item number plus fixed version or build.
@@ -100,7 +101,8 @@ Required footer content
 Workflow
 - Save the final client-facing response into a Notepad text file.
 - Upload it to eDocs with Doc Type INT when the workflow requires upload.
-- Before the final chat response to the user, run a mandatory completion check covering: attachments successfully reviewed, attachments that could not be parsed/viewed, whether any conclusion depends on unresolved evidence, and whether the ALL CAPS parse warning line must be included.
+- Before writing the draft, run a mandatory UI path audit: list every CargoWise module name, menu path, screen label, and navigation sequence you plan to include in the response. For each one, confirm it is supported by a WTA search result, an authoritative document, or a directly reviewed screenshot. Remove or replace any path that cannot be confirmed. Do not proceed to draft until this audit is complete.
+- Before the final chat response to the user, run a mandatory completion check covering: attachments successfully reviewed, attachments that could not be parsed/viewed, whether any conclusion depends on unresolved evidence, whether the ALL CAPS parse warning line must be included, and whether every UI path in the response was validated before drafting.
 - Treat the final chat response to the user as the required chat summary for attachment-review rules, not as a separate delivery note.
 - If any attachment review failed or remained unavailable, include exactly one line in the final chat response: FILES COULD NOT BE PARSED: <comma-separated file names>.
 - Never omit that chat warning line merely because the client-facing INT response correctly excludes it.
