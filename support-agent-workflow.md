@@ -73,9 +73,14 @@ This file contains repository-tracked workflow guardrails that should remain ali
 ## Response Footer Formatting
 
 - The WiseTech Academy footer section must be headed exactly: `Relevant WiseTech Academy links:`.
-- Each academy item must include both the module title and URL on the same line using this format: `- <module title> - <url>`.
+- Each academy item must include both the module title and URL on the same line using this format: `- <module title> - <url>`. Use a hyphen with spaces ( - ) between the title and URL, not an em dash.
+- Do not repeat in the academy footer any URL already cited inline in the response body.
 - Do not output bare wisetechacademy.com URLs without titles.
 - If no genuinely relevant academy content is available, state that explicitly under the same heading instead of listing generic links.
+- The confidence rating line must use exactly this format: `Confidence: X/5` — no inline explanation or rationale text after the rating number.
+- Each similar incidents bullet must include the incident number, a short title, a brief description of the problem, and the resolution outcome — not just the incident number, title, and status metadata tuple.
+- Do not use ALL CAPS section subheadings anywhere in the response body.
+- Do not use `---` horizontal rule dividers anywhere in the response text, including as separators between body sections or between the body and footer content.
 
 ## Client-Facing Wording
 
