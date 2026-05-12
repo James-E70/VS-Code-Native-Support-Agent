@@ -44,6 +44,7 @@ Requirements:
 - Do not call `mcp_ediprod_get-product-info` while still trying to surface or execute the exact job-details path for a known `CS########` incident.
 - `mcp_ediprod_get-product-info` is only for the specific case where you have already committed to the `mcp_ediprod_filter-incidents` fallback and need valid product keys for that filter.
 - Only fall back to `mcp_ediprod_filter-incidents`, ticket board listings, or browser or webpage access after the exact job-details path has been tried and either remained unavailable or failed after one retry.
+- When calling `mcp_ediprod_filter-incidents`, the parameters `area`, `module`, `status`, `criticality`, `country`, `reportedOrgCode`, and `reportedEnterpriseCode` are all array types. Always pass them as JSON arrays even when filtering on a single value — e.g. `["FIN"]` not `"FIN"`. Passing a bare string causes a `-32602` validation error.
 - Do not infer that a `CS########` incident is unavailable from a filter miss, queue miss, or browser-launch limitation when the exact job-details path has not yet been tried.
 - Do not repeat checks the latest evidence already proves.
 - Do not state unverified assumptions as facts.
