@@ -67,7 +67,7 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - Keep this file aligned with the working support-agent prompt and any repository-scoped workflow memory used during investigations.
 - If a workflow rule materially changes support behaviour, update this file in the same change set so the repository remains the source of truth.
 - If fresh client evidence arrives after a draft conclusion has been formed, reopen the evidence review from that attachment first and do not rely on the earlier draft until the new evidence is checked.
-- Before any final user-facing chat close-out, perform a completion check covering: attachments reviewed, attachments unresolved, whether any conclusion depends on unresolved evidence, and whether the ALL CAPS parse-warning line must be included.
+- Before any final user-facing chat close-out, perform a completion check covering: attachments reviewed, attachments unresolved, whether any conclusion depends on unresolved evidence, whether the ALL CAPS parse-warning line must be included, and whether every WTA article, Update Note, how-to, or guide referenced in the response body has its URL cited inline in the same sentence (footer-only URLs do not satisfy this requirement).
 - Treat the final user-facing chat close-out as the required chat summary for attachment-review rules rather than as a separate delivery/status note.
 - If any attachment review failed or remained unavailable, the final user-facing chat close-out must include exactly one line using this format: `FILES COULD NOT BE PARSED: <comma-separated file names>`.
 

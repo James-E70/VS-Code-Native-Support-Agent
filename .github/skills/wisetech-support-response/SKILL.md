@@ -71,7 +71,8 @@ version: 1.0.0
 - Start with: Hi <Contact First Name>,
 - Use business-appropriate language and clear paragraph spacing.
 - Do not use internal-handoff wording such as "please request the customer".
-- When referencing any Update Note, WiseTech Academy article, FAQ, how-to, reference guide, or other eLearning content in the response body, include the direct URL inline in the same sentence using the format: <title or description> - <url>.
+- When referencing any Update Note, WiseTech Academy article, FAQ, how-to, reference guide, or other eLearning content in the response body, include the direct URL inline in the same sentence using the format: <title or description> - <url>. A URL placed only in the footer does NOT satisfy this requirement — the inline citation and the footer listing are both required independently.
+- KNOWN FAILURE MODE — INLINE URL OMISSION: WTA references have been written into the response body as plain text (e.g. "This is documented in the Payables Invoice Processing Portal setup guide.") without an inline URL. Before finalizing, scan every sentence in the response body that names or describes a WTA article or guide and confirm it contains an inline URL. If no URL is present in that sentence, add it before proceeding.
 - Do not use ALL CAPS section subheadings anywhere in the response body.
 - Do not use --- horizontal rule dividers anywhere in the response text, including as separators between body sections or between the body and footer content.
 - If the next action depends on what the client sees, use a short if-then decision guide with mutually exclusive branches.
