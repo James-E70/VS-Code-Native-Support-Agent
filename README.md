@@ -11,7 +11,7 @@ The agent is designed to:
 - investigate the issue to the most solved outcome support can reasonably achieve before escalating
 - prefer validated fixes, validated workarounds, validated configuration corrections, or one precise next diagnostic step
 - generate a client-facing response, which is then uploaded to eDocs of the eRequest as an internal file (INT Doc Type)
-- draft an internal escalation note when the incident requires escalation or a documented internal handoff
+- draft an internal escalation note when the incident requires escalation or a documented internal handoff, which is then uploaded to eDocs of the eRequest as an internal file (INT Doc Type)
 
 ## Core Behaviour
 
@@ -19,15 +19,14 @@ The agent is instructed to:
 - treat every eRequest as a fresh investigation
 - avoid repeating checks already proven by the latest evidence
 - prefer exact error text, Workflow and Tracking events, exported XML, logs, and other machine-verifiable artefacts over generic screenshots when they are more decisive
-- inspect direct image attachments that are already visible in chat before deciding whether they are readable
-- avoid treating missing OCR text, missing extracted text, or missing parser output as proof that a direct image attachment could not be reviewed
+- inspect direct image attachments that are visible on eDocs of the incident.
 - treat converted spreadsheet text and tables as primary evidence before relying on linked fallback images
 - treat DOCX or PDF conversions that expose `ediprod:///docs/.../images/...` links as reviewable document-image output and open those linked images before classifying the source file as unparsed
 - treat linked page images from image-only DOCX or PDF conversions as the working evidence source for that document
 - transcribe or summarize relevant visible text from reviewed page images so the investigation can proceed without a native text layer
 - if one linked fallback image from a converted Office attachment is invalid, skip that image and continue with the remaining parsed output unless the decisive evidence exists only in the broken image
 - treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and surface `FILES COULD NOT BE PARSED: ...` in the chat summary
-- avoid unverified UI paths, fields, or assumptions
+- Never provide unverified UI paths, fields, or assumptions.
 - identify known defects or closed work items directly when the available evidence supports that conclusion
 - verify whether a similar historical incident has been superseded by a later delivered update note or work item before treating that older record as the controlling classification
 - keep the response client-facing and ready to send with minimal editing
@@ -37,12 +36,6 @@ The agent is instructed to:
 The generated response should:
 - start with `Hi <Contact First Name>,`
 - use business-appropriate language with clear paragraph spacing
-- sign off exactly as shown below
-
-```text
-Thank You,
-James
-```
 
 It should also include:
 - a confidence rating from 0 to 5
@@ -70,11 +63,10 @@ It should also include:
 ## Operational Notes
 
 - This repository contains prompt and workflow configuration, not application code.
-- Generated incident-specific response files are intentionally ignored by git.
 - Partial attachment review must not be treated as complete evidence review; if any attachment still cannot be reviewed after direct image review or document-image review, the warning must be surfaced in chat before drafting the final conclusion.
 - Image-only DOCX or PDF evidence may arrive as a converted markdown stub plus linked page images; those linked `ediprod:///docs/.../images/...` files are part of the review path and should be opened in staged batches before requesting re-exported screenshots.
 - For image-only document conversions, the agent-side workaround is to use the linked page images as the evidence source, summarize the relevant visible text into working notes, and request a better-format export only if the page images themselves remain unreadable.
-- Client-facing steps must be feasibility-checked for the client context before they are suggested; do not assume WiseCloud users can access an in-session browser, shell, or remote desktop unless that capability is verified.
+- Client-facing steps must be feasibility-checked for the client context before they are suggested.
 - Any client-facing output should still be reviewed by a support specialist before use.
 
 ## Intended Audience
