@@ -82,6 +82,7 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - The confidence rating line must use exactly this format: `Confidence: X/5` — no inline explanation or rationale text after the rating number.
 - Each similar incidents bullet must include the incident number, a short title, a brief description of the problem, and the resolution outcome — not just the incident number, title, and status metadata tuple.
 - Do not use ALL CAPS section subheadings anywhere in the response body.
+- Do not use bold or title-case section headers (e.g. "What the logs reveal", "Monitoring rejected EDI messages") anywhere in the response body. Write the response as flowing paragraphs with transitional prose, not a document with titled sections.
 - Do not use `---` horizontal rule dividers anywhere in the response text, including as separators between body sections or between the body and footer content.
 
 ## Client-Facing Wording
