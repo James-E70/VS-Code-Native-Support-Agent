@@ -49,6 +49,7 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - Either verify that capability from authoritative documentation or current evidence, or phrase that step conditionally with a validated fallback; ask a confirming question only when that dependency is necessary for the next step.
 - When the client is WiseCloud-hosted, never assume they can open a browser or Windows shell inside the active CargoWise session.
 - Treat in-session browser or shell access as unavailable unless current evidence or authoritative documentation confirms otherwise.
+- KNOWN FAILURE MODE — REGISTRY MECHANISM SCOPE ASSUMPTION: Before recommending any registry setting as a fix for a specific error or validation failure, verify via WTA or WI search that the registry's scope reaches the exact stage of the process that produces the error. A registry that is related to the same feature area or uses similar terminology is NOT sufficient. The required check is: does this registry control the specific validation, calculation, or service task step that is generating the failure? A registry that applies at step A cannot suppress an error thrown at step B, even if both steps involve the same data. Do not recommend a registry as a fix until this scope match is confirmed by authoritative documentation.
 
 ## Response Draft Guardrails
 

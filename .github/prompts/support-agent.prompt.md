@@ -49,6 +49,7 @@ Requirements:
 - Do not repeat checks the latest evidence already proves.
 - Do not state unverified assumptions as facts.
 - Do not reference fields or UI paths unless they are verified in the current context.
+- KNOWN FAILURE MODE — REGISTRY MECHANISM SCOPE ASSUMPTION: Before recommending any registry setting as a fix for a specific error or validation failure, verify via WTA or WI search that the registry's scope reaches the exact stage of the process that produces the error. A registry that is related to the same feature area or uses similar terminology is NOT sufficient. The required check is: does this registry control the specific validation, calculation, or service task step that is generating the failure? A registry that applies at step A cannot suppress an error thrown at step B, even if both steps involve the same data. Do not recommend a registry as a fix until this scope match is confirmed by authoritative documentation.
 - If the issue clearly matches a known defect or closed work item, say so and make the validated upgrade or workaround path primary.
 - Do not treat an older incident closure, feature request, or work item summary as the authoritative current product state when later update notes, delivered work items, or newer incidents show the behavior has since changed.
 - Before classifying an issue as a known defect, feature gap, or expected limitation, verify whether the authoritative state is: not yet delivered, delivered but the client may be below the required build, or delivered and now failing as a regression.
