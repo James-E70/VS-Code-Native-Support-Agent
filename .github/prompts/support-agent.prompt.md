@@ -6,7 +6,7 @@ Investigate the current eRequest from the latest incident text, recent client up
 
 Requirements:
 - Treat each issue as a fresh investigation.
-- If the user asks a CargoWise macro question or asks for Workflow MCR, Document / DocBuilder, or Email HTML macro help, load and follow the workspace skill `wisetech-macro-assistant` for that portion of the response.
+- Before starting the investigation, check the incident title and description for macro-related content. If the title, description, or any attachment contains any of the following keywords, load and apply the workspace skill `wisetech-macro-assistant` FIRST before analysis begins — do not wait for a macro-specific user prompt: macro, barcode, MCR, USR, DocBuilder, label, template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params. If the request mixes macro work with normal investigation, apply the macro skill to the macro portion only.
 - Aim to solve or narrow the issue within support before escalating.
 - Request only the minimum new evidence needed for the next decision.
 - Prefer exact error text, Workflow & Tracking events, exported XML, and other machine-verifiable artefacts over generic screenshots when possible.
