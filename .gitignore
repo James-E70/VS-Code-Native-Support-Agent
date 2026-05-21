@@ -1,4 +1,6 @@
 # Generated eRequest response and escalation artifacts
+CS*.txt
+CS*.b64
 CS*_response*
 CS*_Response*
 CS*_escalation*
