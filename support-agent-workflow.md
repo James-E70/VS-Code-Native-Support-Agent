@@ -72,6 +72,11 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - If an older incident was closed as a feature request or expected behavior, but a later delivered update note shows that behavior was implemented, reframe the current issue as either an upgrade gap or a regression depending on the client build.
 - Before calling an issue a known defect, feature request, or expected limitation, check whether version or release boundaries are the real discriminator and state that boundary explicitly.
 
+## Workspace Auto-Load Setup
+
+- `.github/copilot-instructions.md` contains a copy of `SPSS PROMPT.md` and is loaded automatically by VS Code Copilot for every agent session in this workspace. No manual file attachment is needed when starting a new investigation — just open a new agent conversation and enter the CS number.
+- Whenever `SPSS PROMPT.md` is updated, `.github/copilot-instructions.md` must be updated to match in the same change set. Use the `sync-repo-changes` prompt to propagate changes across all relevant files.
+
 ## Usage
 
 - Keep this file aligned with the working support-agent prompt and any repository-scoped workflow memory used during investigations.
