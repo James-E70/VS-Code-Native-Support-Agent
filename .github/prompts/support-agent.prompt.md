@@ -80,7 +80,6 @@ Then include:
 
 Workflow:
 - Save the final response to a text file.
-- Upload to eDocs with Doc Type INT when the current workflow requires upload.
 - Before the final user-facing chat message, run a mandatory completion check for: reviewed attachments, unresolved attachments, whether any conclusion depends on unresolved evidence, and whether the ALL CAPS parse-warning line is required.
 - Treat the final user-facing chat message as the required chat summary for attachment handling rules, not as a separate status note.
 - If any attachment review failed or remained unavailable, include exactly one line in that final chat message: FILES COULD NOT BE PARSED: <comma-separated file names>.
