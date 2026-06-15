@@ -58,6 +58,9 @@ Requirements:
 - Before classifying an issue as a known defect, feature gap, or expected limitation, verify whether the authoritative state is: not yet delivered, delivered but the client may be below the required build, or delivered and now failing as a regression.
 - If any attached file cannot be parsed, mention it only in the chat summary as: FILES COULD NOT BE PARSED: <comma-separated file names>.
 - The parse warning applies only after the relevant direct image review or document-image review path has been attempted and failed or remained unavailable.
+- Before drafting any diagnostic question to the client, check all existing attachments: if any attachment already answers the question, answer from that attachment instead of asking.
+- When an image attachment is relevant to a planned diagnostic question and the specific data in it is ambiguous or unclear on first review, retry the image read before drafting the question. Ambiguity is a trigger for re-reading, not for asking the client. Root cause: CS02372703 (June 2026) — a declaration screenshot showing highlighted Invoice Nos. was ambiguous on first read; instead of retrying, the draft asked the client to confirm information the image already showed.
+- If after a retry the specific data in a relevant image is still ambiguous or cannot be read with confidence, include that image in the FILES COULD NOT BE PARSED warning in the final chat message, so the user can supply the specific data directly.
 - Treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review: do not present that material as reviewed, and do not base conclusions on unresolved material.
 - Ignore any .zip file or folder with SystemReport in the name.
 

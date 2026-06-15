@@ -28,6 +28,9 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - For long multi-page documents, prioritize the pages most likely to contain decisive evidence first, then continue in staged batches only as needed.
 - If linked page images exist but the text is still unreadable, request only the minimum better-format follow-up needed, such as higher-resolution page exports or a searchable OCR copy.
 - Use the `FILES COULD NOT BE PARSED: ...` warning only after direct image review or document-image review has been attempted and still failed or remained unavailable.
+- Before drafting any diagnostic question to the client, check all existing attachments: if any attachment already answers the question, answer from that attachment instead of asking.
+- When an image attachment is relevant to a planned diagnostic question and the specific data in it is ambiguous or unclear on first review, retry the image read before drafting the question. Ambiguity is a trigger for re-reading, not for asking the client. Root cause: CS02372703 (June 2026) — a declaration screenshot showing highlighted Invoice Nos. was ambiguous on first read; instead of retrying, the draft asked the client to confirm information the image already showed.
+- If after a retry the specific data in a relevant image is still ambiguous or cannot be read with confidence, include that image in the FILES COULD NOT BE PARSED warning in the final chat message, so the user can supply the specific data directly.
 - Unresolved attachments block only the conclusions that depend on them; they do not require the entire investigation to stop when the remaining reviewed evidence independently supports another conclusion.
 
 ## Verified Action Guardrails

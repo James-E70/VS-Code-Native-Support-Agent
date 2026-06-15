@@ -31,6 +31,9 @@ Evidence verification rule (internal):
 - If an item is present but missing one qualifier (for example timestamp shown but timezone not shown), request only that missing qualifier instead of re-requesting the full item.
 - If any client-provided eDocs file could not be parsed, read, or viewed, record that file name internally and include the required ALL CAPS warning line in the chat conclusion summary so James is alerted that the response was prepared from an incomplete file review.
 - A direct image attachment that is visibly present in the chat context does not count as unread or unparsed until you have attempted direct visual review of the image itself.
+- Before drafting any diagnostic question to the client, check all existing attachments: if any attachment already answers the question, answer from that attachment instead of asking.
+- When an image attachment is relevant to a planned diagnostic question and the specific data in it is ambiguous or unclear on first review, retry the image read before drafting the question. Ambiguity is a trigger for re-reading, not for asking the client. Root cause: CS02372703 (June 2026) — a declaration screenshot showing highlighted Invoice Nos. was ambiguous on first read; instead of retrying, the draft asked the client to confirm information the image already showed.
+- If after a retry the specific data in a relevant image is still ambiguous or cannot be read with confidence, include that image in the FILES COULD NOT BE PARSED warning in the final chat message, so James can supply the specific data directly.
 
 First-response quality gates (internal):
 - If the client evidence already proves a field value, do not ask the client to re-check or re-screenshot that same state.
