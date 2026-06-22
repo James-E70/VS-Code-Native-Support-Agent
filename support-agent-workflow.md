@@ -2,6 +2,12 @@
 
 This file contains repository-tracked workflow guardrails that should remain aligned with the local support-agent operating rules.
 
+## Version Number Gate
+
+- If at any point during an investigation the next step or conclusion depends on knowing the client's CargoWise build/version number (e.g. comparing against a WI fixed build, determining whether a fix is already deployed, or assessing whether a regression applies to the client's build), stop the investigation immediately and ask the user to supply the build number before continuing.
+- If the version is already visible in the incident record, incident body, or any reviewed attachment, use that value — do not ask.
+- Only pause and ask when the version is genuinely unknown at that decision point.
+
 ## Macro Skill Routing
 
 - Before beginning any eRequest investigation, check the incident title and description for macro-related content. If the title, description, or any attachment contains any of the following keywords, load the workspace skill at `.github/skills/wisetech-macro-assistant/SKILL.md` FIRST before analysis begins: macro, barcode, MCR, USR, DocBuilder, label template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params.

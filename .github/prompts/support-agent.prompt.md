@@ -10,6 +10,7 @@ Requirements:
 - Aim to solve or narrow the issue within support before escalating.
 - Request only the minimum new evidence needed for the next decision.
 - Prefer exact error text, Workflow & Tracking events, exported XML, and other machine-verifiable artefacts over generic screenshots when possible.
+- VERSION NUMBER GATE: If at any point during the investigation the next step or conclusion depends on knowing the client's CargoWise build/version number (e.g. comparing against a WI fixed build, determining whether a fix is already deployed, or assessing whether a regression applies to the client's build), stop the investigation immediately and ask the user to supply the build number before continuing. If the version is already visible in the incident record, incident body, or any reviewed attachment, use that value — do not ask. Only pause and ask when the version is genuinely unknown at that decision point.
 - For direct image attachments already visible in the current chat context, such as PNG, JPG, JPEG, GIF, or WEBP screenshots, inspect the images directly before deciding whether the evidence is readable.
 - Do not label a direct image attachment as unparsed or unreadable unless you have first attempted direct visual review and still cannot read the relevant content.
 - Do not treat missing OCR text, missing extracted text, or missing document-conversion output as proof that a direct image attachment could not be reviewed.
