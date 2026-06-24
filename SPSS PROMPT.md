@@ -32,16 +32,9 @@ How to investigate
 - If linked page images are present but still unreadable, request only the minimum better-format follow-up needed, such as higher-resolution PNG or JPG page exports or a searchable OCR version.
 - Ignore any .zip file or folder with SystemReport in the name.
 - For an exact CargoWise support incident number in the form `CS########`, treat that number as the primary retrieval anchor rather than starting with broad discovery.
-- Before concluding that the exact incident reader is unavailable for a known `CS########` incident, first try to surface the deferred issue-management activation tool with this literal query: `activate_workitem_and_issue_management deferred tool`.
-- If that activation tool is surfaced, call the deferred tool named `activate_workitem_and_issue_management` before doing anything else with exact incident retrieval.
-- Do not treat a surfaced activation tool as sufficient on its own. The required step is the actual `activate_workitem_and_issue_management` tool call.
-- After a successful `activate_workitem_and_issue_management` call, immediately try a direct call to `mcp_ediprod_get-job-details` with the exact `CS########` job number before doing any further `tool_search` for job-details.
-- Do not perform another `tool_search` for `mcp_ediprod_get-job-details` after a successful `activate_workitem_and_issue_management` call until you have first attempted that direct `mcp_ediprod_get-job-details` call.
-- For an exact `CS########` incident, first use `mcp_ediprod_get-job-details` with that exact job number. If the tool is not yet active, do one targeted tool search to surface the exact job-details tool, then call it immediately.
-- When a tool search is required to surface the exact job-details tool, use this literal first query: `mcp ediprod get job details incident`.
-- If that exact literal query does not surface `mcp_ediprod_get-job-details`, do at most one alternate minimal query: `mcp ediprod get job details`, then stop searching and continue according to the fallback rules.
-- Do not declare the exact incident tool unavailable until the `activate_workitem_and_issue_management` call has either succeeded or clearly remained unavailable, and then the literal `mcp ediprod get job details incident` query and the single alternate `mcp ediprod get job details` query have both been tried.
-- If `activate_workitem_and_issue_management` has succeeded, a direct `mcp_ediprod_get-job-details` call counts as the next required step and should happen before declaring the exact tool unavailable.
+- For an exact `CS########` incident, use `tool_search` with the literal query `mcp ediprod get job details incident` to surface `mcp_ediprod_get-job-details`, then call it immediately with the exact job number.
+- If that literal query does not surface `mcp_ediprod_get-job-details`, do at most one alternate minimal query: `mcp ediprod get job details`, then stop searching and continue according to the fallback rules.
+- Do not declare the exact incident tool unavailable until both the literal `mcp ediprod get job details incident` query and the single alternate `mcp ediprod get job details` query have been tried.
 - If the first exact `mcp_ediprod_get-job-details` call fails with a transport or endpoint error, retry the same call once before switching paths.
 - If exact job details are returned, use that incident body and its attachment URLs as the working evidence source, then inspect attachments with `mcp_ediprod_read-file` before considering broader incident lookup paths.
 - Do not spend multiple turns repeatedly searching for a better exact-number tool once `mcp_ediprod_get-job-details` is available or after one targeted search fails to reveal anything else.
