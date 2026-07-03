@@ -140,3 +140,81 @@ Root cause: CS02390824 (July 2026) — 58 confirmed lock timeout errors on `Stor
 - KNOWN FAILURE MODE — DOCUMENTATION ATTRIBUTION PHRASING: Do not use attribution phrases that place a source between the reader and the product fact — e.g. "CargoWise documentation confirms that...", "According to WTA...", "The WTA article states...", "As per the update note...". State the product behavior directly as fact: "The Job Closure Date recognition style does not generate WIPs or Accruals" — not "CargoWise documentation confirms that the Job Closure Date recognition style does not generate WIPs or Accruals". The inline URL citation is still required in the same sentence; only the framing must be direct, not attributed.
 - When citing any Update Note or WiseTech Academy content in the body of a client-facing response, always include the direct link inline in the same sentence using this format: `<title or description> - <url>`.
 - Final wording check: before sending any client-facing response, scan once for habit-language hedges and replace them with direct evidence-based wording.
+
+## Tool and Attachment Handling Notes
+
+- `mcp_ediprod_read-file` can read `.ZIP` attachments when they contain supported text/log content; use it before requesting re-uploaded files.
+- `mcp_ediprod_read-file` does not support `.mp4`; if evidence is video-only, rely on client description and request one full-screen screenshot and exact clicked report details only when needed.
+- `mcp_ediprod_read-file` does not support `.pcapng`; for packet-capture evidence, rely on the incident description or client summary and request SMTP/firewall log correlation at the same UTC timestamp if root-cause confirmation is still needed.
+- `mcp_ediprod_read-file` may fail on `.MSG` (Outlook) attachments; if latest client evidence is only in `.MSG`, request the key values pasted in text or re-uploaded as `.png` or `.pdf` so parser-trace fields can be read.
+- Before uploading INT files, verify that the `.b64.txt` file decodes exactly to the `.txt` file to avoid stale one-line base64 uploads.
+- For PowerShell base64 generation, encode and decode using raw file bytes (`[System.IO.File]::ReadAllBytes`) for verification; `Get-Content` and `Set-Content` can introduce newline or encoding drift and cause false mismatch checks.
+
+## eDocs and Storage Knowledge
+
+- For eDocs external-storage cases where clients use OPS/IPS Archive Manager schedules to retain documents longer than operational records, do not treat orphan rows in SD002+ as the supported retention layer. Archived eDocs should be retained via Archived Records plus normal S3/external-storage flow, and orphan-only SD002+ databases can still be merged away; verify PAR/PDR/PDO purge schedules separately if the client is asking about 15-year document retention.
+- In eDocs external-storage cases, orphan rows can be created when an older SD database is read-only and a new eDoc or update causes CargoWise to copy that StorageMain's eDocs into the latest writable SD database; the old copies can remain behind and appear as duplicates across SD001 and SDxxx even though StorageMain points only to the live database.
+- For Merge eDocs Databases cases that stall or keep secondary SD databases alive, check build level early: closed incident CS01741885 is the current authoritative fixed-build match for the merger defect, resolved in CargoWise 24.7.12.712.
+
+## Product-Specific Knowledge
+
+### AP XUT — TPA vs IPP ShipmentCollection
+
+- For AP XUT incidents, distinguish the import path before answering ShipmentCollection questions.
+- Transactions Pending Allocation evidence can show runtime error `Operational job ForwardingShipment with DataSource Key ... is not found`; in that flow, client samples using `ShipmentCollection > Shipment > DataContext > DataSourceCollection` may match observed behavior.
+- Newer Payables Invoice Processing Portal docs explicitly map Job References from `ShipmentCollection > DataTargetCollection > DataTarget` after enabling `Accounting > Payables Invoice Processing Portal > Import Universal Transactions into Payables Draft Invoices`.
+- Do not treat TPA and IPP ShipmentCollection guidance as interchangeable in client responses.
+
+### IE EMCS Change of Destination
+
+- IE EMCS change-of-destination cases where the consignee queue does not update after corrected destination details often align with CS02090784-style behavior: if Change of Destination was submitted and destination still cannot receipt, safest support workaround is reroute ARC back to origin warehouse, close original movement via Report of Receipt or Revenue cancellation, then issue replacement ARC with correct consignee/destination.
+- For first response, use exact navigation `Operate > Customs > Excise Movement Control System (EMCS)` and request only the Messages tab rows for the latest Change of Destination plus any rejection if the reroute path fails.
+
+### Forwarding Shipment — Panel Divider Sizing vs DPI Regression
+
+- In the Forwarding Shipment Edit screen and similar split-panel screens, the detail area has a draggable divider between the upper grid and the lower detail sub-tabs (Packing, Location, Custom Fields). Users can accidentally drag this divider upward until fields like Volume, Length, Width, and Height are no longer visible.
+- The panel divider position is NOT controlled by the form layout template. Resetting form layout does NOT restore the panel height.
+- The fix is simply to drag the panel divider downward to expand the detail section.
+- Differential diagnosis: panel divider issue is more likely when only one user is affected and the admin can see the fields normally; a DPI regression is more likely when multiple users are affected simultaneously or dropdown arrows are also truncated.
+- Root cause: CS02369601 (June 2026) — Volume/Length/Width/Height missing from Packing sub-tab was initially misdiagnosed as a DPI regression; resolved by showing the user how to drag the panel divider.
+
+### PAVE Web — 404 After Registry Enable
+
+- For PAVE Visual Board cases where `Enable PAVE on the web` is already enabled and the Web menu option appears, a browser `HTTP 404 Page Not Found` on `/Portals/PAV/Desktop#/formFlow/...` indicates the registry step succeeded and the remaining issue is the portal endpoint or deployment on that environment — not another Buffer Management registry setting.
+- Do not ask the client to change more PAVE settings; position the next action as internal hosting or portal deployment review.
+- Key evidence discriminator: menu option present plus 404 on the PAV route.
+
+### UPG — LoginForUpgrade Scheduled Upgrade Runner
+
+- Exact UPG error `Validation of parent service manager process failed` at `Enterprise.Startup.ScheduledUpgraderDirector.LoginForUpgrade()` matches a known scheduled-upgrade runner validation defect.
+- Best first client path: explain package download started successfully, identify scheduled UPG handoff failure, and direct client to manual upgrade via `Maintain > System > System > Upgrades` as workaround.
+- Useful related references: CS01899195, CS01881602, WI00846831.
+- Note for newer builds: UPG configuration options may be under `System > Upgrade` registry instead of a service task Configuration tab.
+
+### AE Manifest — EDIFACT LOC Segment Mapping Facts
+
+- LOC+88 (transshipment port) was introduced from the Manifest Routing tab by WI00823595 (Nov 2024). The Routing tab was only enabled when the manifest ApplicationCode is ShippingLine or Consolidator — NOT available for Agent/Forwarder (AGT) manifests.
+- LOC+76 (Last Foreign Port) was removed entirely from the AE Manifest CUSCAR message by WI00839469 (Dec 2024); the Last Foreign Port field has no mapping to any outbound CUSCAR segment.
+- WI00959329 (closed Nov 2025) replaced the Routing tab with a new Transport Means tab on AE Manifest and moved PlaceOfTranshipment to LOC+13 via CusTransportMeans. For any new AE Manifest LOC+88 or transshipment port incident, run a fresh WI search to confirm whether the AGT gate has been resolved by WI00959329 or a follow-on WI before advising the client.
+
+### Miscellaneous Product Facts
+
+- For DIG error `The visible company code '<code>' specified in email subject is invalid`, IMS received the email but DIG rejected subject allocation; resolve by using the exact target company Visible Company Code in `C:<code>` or by enabling sender mapping and testing with `[DocIngestion]`.
+- For IPP error `Could not find a Query Builder Strategy for table: BMBoard`, if correcting `System > BI > Audit Server` then produces `Enterprise_Audit does not exist on the server`, treat as audit-database availability or wrong audit-server target; next step is to restore or create the intended audit DB or point the registry to the SQL host that actually contains it, then retest IPP parsing.
+- For Services app pool incidents showing private-bytes recycle or disablement after recent upgrades, active work item WI01052235 is the current authoritative match (product-side ServicesSiteReconciler/app-pool defaults defect stream); safe first response is known-issue acknowledgement plus temporary stop/start of the affected Services app pool if it disables again.
+- Closed-work-item upgrade rule: when the best authoritative match is a work item with status Closed or equivalent, assume the issue is fixed unless current evidence clearly disproves that. Make upgrade to the verified fixed version/build the first recommendation, and include both the work item number and the fixed version/build in the client-facing response.
+- For consol/container overwrite-delete reports after integration updates, validate inbound UniversalShipment XML uses `ContainerCollection Content="Partial"`; missing or Complete semantics can clear non-sent container rows or fields (seal/type) and mimic random data loss.
+- For Poland KSeF error `KsefApiException - 21115: Nieprawidlowy certyfikat`, prioritize checks in this order: certificate type (must be authentication/online, not offline), KSeF environment alignment (CW test to KSeF DEMO), PTU/NIP match to Branch Org Proxy, then KSeF send permissions.
+- For Poland KSeF error `Timeout submitting invoice to KSeF, please try again later. (No response after 00:02:00).`, treat the first response path as temporary KSeF or connectivity slowness: advise re-queue after 15-30 minutes if affecting multiple invoices; if isolated to one invoice while others succeed, request only the latest Workflow & Tracking event rows plus the latest DEX export.
+- For Poland invoice tax message setup, correct navigation is `Maintain > Account > Invoice Tax Messages` (not `Manage > Account > Invoice Tax Messages`).
+- For Document Ingestion testing, `Parsing Enabled` appears only when `Commercial Invoice Parsing Mode` is `Manual`; in `Automatic`, the checkbox is hidden by design and parsing triggers on save for CIV docs.
+- For IPP error `The Draft Invoice Job Reference cannot be deleted because there is at least one Acc Draft Invoice Charge Line Job Reference referencing it`, treat as known defect stream WI01038413, fixed in CargoWise 26.4.15.299 / DP Release 2026 Apr 15 patch 299; if client says they already have the patch, request only one affected draft Internal Reference plus a full Help > About CargoWise build screenshot to assess as a post-fix recurrence.
+- For Workflow & Tracking > Events screenshots that show User + Exact and no records found, first check for the retained last-saved Events filter; instruct client to click Clear and re-run Find before treating it as a missing-events defect.
+- For self-hosted Process Controller startup failures with `Login failed for user 'OdysseyAdmin'`, first validated path is application-login repair: use `Help > Database Administration > Restore Database Logins`, or `Enterprise.DbBackupAndRestore.exe` with `Create or Repair Application Database Login` when audit/warehouse DBs are on separate servers.
+- For Usage Reports error `myaccount-portal.cargowise.com refused to connect`, this links to defect stream WI01041519 ("Fix MYA Usage report download page after .NET 8.0 migration"); treat as known product-side issue and use direct URL workaround `https://myaccount.cargowise.com/Home/UsageReports.aspx`.
+- For OMS error `535: 5.7.139 Authentication unsuccessful, user is locked by your organization's security defaults policy`, treat as Microsoft 365 mailbox or tenant security policy blocking SMTP login; validated path is mailbox unlock plus confirming Authenticated SMTP and required Send As or SMTP relay permissions, not a CargoWise email-generation defect.
+- For WiseCloud-hosted test systems, do not advise clients to set `System > Database > Recovery Model of Databases`; that SIMPLE/FULL registry guidance applies only when the environment is customer-manageable. WiseCloud-hosted environments have hosted-managed backup/log-backup behavior.
+- For shipment workflow milestones conditioned on `BRK` and `IMP`, a linked brokerage declaration existing later does not reliably retro-add the shipment milestone by itself; first check whether the shipment was re-saved or the workflow was reapplied after the brokerage job existed.
+- For Quick Booking or shipment-style UXML imports where AddressOverride is present but overridden address blocks are not saved, check whether the integration runs under an EDI Message Sender/Staff Proxy user and whether that user has `Allow {MISC} account details on Shipments`; if granting that right immediately restores the override, treat it as security-controlled behavior rather than an XML defect.
+- For air AMG incidents where AWB shows full lithium battery wording but FWB shows `LI BATT PI966/967/970`, treat as known CargoIMP/CargoWise abbreviation behavior rather than a transmission failure; advise OSI/Handling Information workaround if airline needs the full sentence electronically.
+- For Japan AFR amendment incidents after carrier ATD, first check the bill Release Status before asking for more evidence: post-ATD master or house bill changes are generally blocked unless the bill is HLD, DNL, or DNU.
