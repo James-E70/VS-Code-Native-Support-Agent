@@ -109,6 +109,28 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - Do not use bold or title-case section headers (e.g. "What the logs reveal", "Monitoring rejected EDI messages") anywhere in the response body. Write the response as flowing paragraphs with transitional prose, not a document with titled sections.
 - Do not use `---` horizontal rule dividers anywhere in the response text, including as separators between body sections or between the body and footer content.
 
+## Kibana GlobalSearch — Performance and SQL Lock Investigation
+
+When an eRequest reports slow performance, lock request timeouts, force-closes, or system-wide save failures on a WiseCloud-hosted client, use the Kibana GlobalSearch infrastructure to retrieve server-side evidence before drafting the response.
+
+**Entry point**: https://wisetechglobal.sharepoint.com/sites/ServerManagement/SitePages/Elastic-GlobalSearch.aspx
+This SharePoint page lists all active Kibana instances. eye.wtg.ws was decommissioned February 28, 2026 — do not use it.
+
+**Instance selection** — choose the PROD instance that matches the client's datacenter:
+- WiseCloud Americas (us2wp-* hosts): `kibana.amer-prod-1.wtg.zone`
+- WiseCloud AU / APAC (au2wp-* hosts): `kibana.apac-prod-1.wtg.zone`
+- WiseCloud Europe (de1wp-* hosts): `kibana.emea-prod-1.wtg.zone`
+
+Navigate to the `wisecloudsupport` space after login. Full technical reference (ES|QL queries, data view names, field definitions, pattern interpretation) is in repo memory: `/memories/repo/kibana-performance-investigation.md`.
+
+**Critical technique**: Do NOT type queries into the Kibana Discover editor — browser autocomplete corrupts long queries. Always call the REST API via `run_playwright_code` → `page.evaluate` + `fetch('/s/wisecloudsupport/api/console/proxy?path=%2F_query&method=POST', ...)` with header `kbn-xsrf: true`.
+
+**Key data source for SQL lock timeouts**: `logs-cargowise.sessionhost.performance-wtg`. SQL Error 1222 (lock request timeout) does NOT appear in the SQL Server error log — it is application-layer only and exists exclusively in this data view, in the `srdh.message` field. Filter with: `srdh.message LIKE "*Lock request time out*"`.
+
+**Lead blocker identification**: the performance log identifies blocked victim sessions (16-second save failures) but not the blocking process itself. Identifying the exact blocking SPID requires SQL Extended Events traces held by the WiseCloud infrastructure team. When victim evidence is confirmed, escalate to WiseCloud infrastructure with: the specific blocked table, the confirmed time window, and the multi-user/multi-host scope — these three data points allow them to retrieve the right Extended Events window.
+
+Root cause: CS02390824 (July 2026) — 58 confirmed lock timeout errors on `StorageDocs` table in `OdysseyMO4SYR`, from 8:15 AM to 11:29 AM ET, across 7+ session hosts, all ForwardingShipment saves. Lead blocker identified through client-side Report Statistics investigation as a scheduled custom report. Prior episode: CS01639170 (May 2024), MGL Milestone Status Report blocking SQL index rebuild for 12 minutes.
+
 ## Client-Facing Wording
 
 - In client-facing responses, present supported product behavior as a direct statement of how the system works based on the current evidence and authoritative sources.
