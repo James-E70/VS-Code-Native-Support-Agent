@@ -10,7 +10,7 @@ Conduct a Kibana GlobalSearch server-side investigation for a WiseCloud performa
 ## Requirements
 
 - Open the GlobalSearch entry page at https://wisetechglobal.sharepoint.com/sites/ServerManagement/SitePages/Elastic-GlobalSearch.aspx to confirm the correct Kibana instance for the client's datacenter before proceeding.
-- Read the full technical reference at `/memories/repo/kibana-performance-investigation.md` before running any queries. All field names, data view names, and query templates are there.
+- Read the full technical reference at `.github/guides/kibana-performance-investigation.md` before running any queries. All field names, data view names, and query templates are there.
 - Determine the correct Kibana instance from the client's datacenter: AMER (us2wp-*) → kibana.amer-prod-1.wtg.zone; APAC (au2wp-*) → kibana.apac-prod-1.wtg.zone; EMEA (de1wp-*) → kibana.emea-prod-1.wtg.zone.
 - Navigate to the `wisecloudsupport` space.
 

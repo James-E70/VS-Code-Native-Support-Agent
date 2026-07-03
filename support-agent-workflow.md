@@ -121,7 +121,7 @@ This SharePoint page lists all active Kibana instances. eye.wtg.ws was decommiss
 - WiseCloud AU / APAC (au2wp-* hosts): `kibana.apac-prod-1.wtg.zone`
 - WiseCloud Europe (de1wp-* hosts): `kibana.emea-prod-1.wtg.zone`
 
-Navigate to the `wisecloudsupport` space after login. Full technical reference (ES|QL queries, data view names, field definitions, pattern interpretation) is in repo memory: `/memories/repo/kibana-performance-investigation.md`.
+Navigate to the `wisecloudsupport` space after login. Full technical reference (ES|QL queries, data view names, field definitions, pattern interpretation) is in `.github/guides/kibana-performance-investigation.md`.
 
 **Critical technique**: Do NOT type queries into the Kibana Discover editor — browser autocomplete corrupts long queries. Always call the REST API via `run_playwright_code` → `page.evaluate` + `fetch('/s/wisecloudsupport/api/console/proxy?path=%2F_query&method=POST', ...)` with header `kbn-xsrf: true`.
 
