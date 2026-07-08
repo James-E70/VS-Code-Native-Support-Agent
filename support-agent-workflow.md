@@ -85,6 +85,7 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 - `.github/copilot-instructions.md` contains a copy of `SPSS PROMPT.md` and is loaded automatically by VS Code Copilot for every agent session in this workspace. No manual file attachment is needed when starting a new investigation — just open a new agent conversation and enter the CS number.
 - Whenever `SPSS PROMPT.md` is updated, `.github/copilot-instructions.md` must be updated to match in the same change set. Use the `sync-repo-changes` prompt to propagate changes across all relevant files.
+- `.github/skills/wisetech-support-response-consolidated/SKILL.md` is a self-contained shareable version of the full response-generation skill, combining the investigation rules from `wisetech-support-response/SKILL.md` with all accumulated failure-mode guardrails, verified UI paths, version gate rules, and workflow preferences from user memory. This file is intended to be shared with colleagues who want to replicate the same response quality in their own VS Code + Copilot agent setup. It requires the same `mcp_ediprod` and `mcp_wtgkb` MCP endpoint access. The sign-off name in that skill should be personalised by each user.
 
 ## Usage
 
