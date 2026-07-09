@@ -22,9 +22,11 @@ Trigger on any of:
 
 ## eRequest Investigation Rule
 
-When processing a support eRequest (CS incident), read the incident title and description before starting the investigation. If the title, description, or any attachment references macro syntax, barcode rendering, DocBuilder expressions, or label template customisation, treat it as a macro-involved incident and load the skill immediately.
+When processing a support eRequest (CS incident), read the incident title, description, and all eConversation posts (client updates within the incident thread) before starting the investigation. If the title, description, eConversation posts, or any attachment references macro syntax, barcode rendering, DocBuilder expressions, label template customisation, or the word "macro", treat it as a macro-involved incident and load the skill immediately.
 
 Do not wait for a macro-specific user prompt. The skill must be loaded at the start of the investigation, not discovered mid-response.
+
+Root cause: CS02383547 (July 2026) — client's re-open post included the phrase "macro names"; the trigger check only covered title/description, not eConversation posts, so the skill was not loaded.
 
 ## Mixed Requests
 

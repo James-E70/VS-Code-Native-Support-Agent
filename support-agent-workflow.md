@@ -10,9 +10,9 @@ This file contains repository-tracked workflow guardrails that should remain ali
 
 ## Macro Skill Routing
 
-- Before beginning any eRequest investigation, check the incident title and description for macro-related content. If the title, description, or any attachment contains any of the following keywords, load the workspace skill at `.github/skills/wisetech-macro-assistant/SKILL.md` FIRST before analysis begins: macro, barcode, MCR, USR, DocBuilder, label template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params.
+- Before beginning any eRequest investigation, check the incident title, description, and all eConversation posts (client updates within the incident thread) for macro-related content. If the title, description, eConversation posts, or any attachment contains any of the following keywords, load the workspace skill at `.github/skills/wisetech-macro-assistant/SKILL.md` FIRST before analysis begins: macro, barcode, MCR, USR, DocBuilder, label template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params.
 - Do not defer this check until mid-investigation. The skill must be loaded at the start, not discovered after a response has already been drafted.
-- Root cause: CS02341945 ("Barcode macro issues", May 2026) was investigated without loading the macro skill because the check was conditional on the user explicitly asking rather than being triggered by the incident title. The auto-invoke rule corrects this.
+- Root cause: CS02341945 (May 2026) — check was conditional on user phrasing rather than incident title. CS02383547 (July 2026) — client re-open post included "macro names"; trigger check only covered title/description, not eConversation posts, so the skill was not loaded.
 - If the incident mixes macro work with other support investigation, apply the macro skill to the macro portion and keep the rest of the response aligned with the active support task.
 
 ## Attachment Review Guardrails

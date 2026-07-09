@@ -23,9 +23,9 @@ version: 2.0.0
 
 ## Step 0 — Macro Check (Run Before Any Investigation Begins)
 
-Before beginning any eRequest investigation, check the incident title and description for the following keywords: macro, barcode, MCR, USR, DocBuilder, label template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params.
+Before beginning any eRequest investigation, check the incident title, description, and all eConversation posts (client updates within the incident thread) for the following keywords: macro, barcode, MCR, USR, DocBuilder, label template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params.
 
-If any of these appear in the title, description, or any attachment, load the wisetech-macro-assistant skill FIRST before analysis begins. Do not defer this check until mid-investigation.
+If any of these appear in the title, description, eConversation posts, or any attachment, load the wisetech-macro-assistant skill FIRST before analysis begins. Do not defer this check until mid-investigation. Root cause: CS02383547 (July 2026) — client re-open post included "macro names"; trigger check only covered title/description, not eConversation posts, so the skill was not loaded.
 
 ---
 
