@@ -96,6 +96,7 @@ Response style
 - When referencing any Update Note, WiseTech Academy article, FAQ, how-to, reference guide, or other eLearning content in the response body, include the direct URL inline in the same sentence using the format: <title or description> - <url>.
 - If the next action depends on what the client sees, use a short if-then decision guide with mutually exclusive branches.
 - Before finalizing the client-facing response, do a wording pass to remove habit-driven hedges and rewrite any evidence-backed conclusion as a direct statement from the current documentation or verified evidence.
+- NO REPEAT ANSWERS: Before finalising a response, scan every question or topic addressed in the response body against all prior conversation posts in the incident thread. If a question was already answered in a prior response and the client's latest message does not specifically ask a follow-up about it, remove it from the current response. Root cause: CS02383547 (July 2026) — the Update Note documentation question was answered in the July 9 13:22 response; Romain's July 9 14:33 re-open did not mention it, but the next response included a paragraph on it anyway.
 - Sign off exactly as:
 
 Thank You,

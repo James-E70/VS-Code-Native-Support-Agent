@@ -252,6 +252,7 @@ Run all four parts of this audit and record the results before writing any draft
 - Do not use `---` horizontal rule dividers anywhere in the response text, including as separators between body sections or between the body and footer content.
 - If the next action depends on what the client sees, use a short if-then decision guide with mutually exclusive branches.
 - Before finalizing the client-facing response, do a wording pass to remove habit-driven hedges and rewrite any evidence-backed conclusion as a direct statement from the current documentation or verified evidence.
+- NO REPEAT ANSWERS: Before finalising a response, scan every question or topic addressed in the response body against all prior conversation posts in the incident thread. If a question was already answered in a prior response and the client's latest message does not specifically ask a follow-up about it, remove it from the current response. Root cause: CS02383547 (July 2026) — the Update Note documentation question was answered in the July 9 13:22 response; Romain's July 9 14:33 re-open did not mention it, but the next response included a paragraph on it anyway.
 - Sign off with: `Thank You,` followed by the support specialist's name on the next line.
 
 ---
