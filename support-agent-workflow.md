@@ -113,6 +113,12 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - Never omit either warning line merely because the client-facing response correctly excludes it.
 - In the final chat close-out, include a line listing all external URLs that were successfully fetched during the investigation: `EXTERNAL URLS CHECKED: <comma-separated URLs>`, or `EXTERNAL URLS CHECKED: NONE` if no external fetches were performed.
 
+## Escalation Note Rules
+
+- When drafting an escalation note, use ALL CAPS section headings followed by a blank line and then prose body. Do NOT use `---` or `----` divider lines anywhere in escalation notes. No decorative separators of any kind.
+- Save escalation notes as `<IncidentNumber>_Escalation_INT.txt` in the workspace folder.
+- ESCALATION NOTE — EXTERNAL URL CITATION RULE: If any external URLs were fetched during the investigation and those URLs contributed to the client-facing response (used to confirm root cause, support workaround recommendations, or shape the escalation rationale), include those URLs in an EXTERNAL SOURCES VERIFIED DURING INVESTIGATION section of the escalation note. URLs that were checked but did not contribute to the client response content do not need to be included. Root cause: CS02398126 (July 2026) — four external Microsoft sources confirmed the drag event payload regression and informed both the client response and the escalation note.
+
 ## Response Footer Formatting
 
 - The WiseTech Academy footer section must be headed exactly: `Relevant WiseTech Academy links:`.
