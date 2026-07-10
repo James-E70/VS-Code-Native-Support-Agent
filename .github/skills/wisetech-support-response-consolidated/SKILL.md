@@ -111,6 +111,14 @@ KNOWN VERSION GATE BYPASS PATTERN — IF/THEN COVERAGE: If you find yourself rea
 
 VERSION GATE — TAN/UPDATE NOTE BUILD DEPENDENCY: When a TAN or Update Note specifies a minimum CargoWise DPR or GPR build version (e.g. "available in DPR 26.5.26.0 / GPR 26.5.19.235"), confirming whether the client is on that build or later IS a version dependency. The VERSION GATE must fire before citing that TAN or Update Note as the confirmed root cause.
 
+### Hosting gate
+
+If at any point during the investigation the next step or conclusion depends on knowing whether the client is self-hosted or WiseCloud-hosted (e.g. determining available menu options, Kibana access, infrastructure-level steps, or feature availability that differs by hosting model), stop the investigation immediately and ask the user (the support specialist in chat) to confirm the hosting model before continuing. Do NOT ask the client in the response — the gate interrupts the agent workflow, not the client conversation.
+
+If the hosting model is already visible in the incident record, the incident body, or any reviewed attachment, use that value — do not ask. Only pause and ask when the hosting model is genuinely unknown at that decision point.
+
+KNOWN HOSTING GATE BYPASS PATTERN — IF/THEN COVERAGE: If you find yourself reasoning "I can present an if/then response covering both hosting scenarios, so the gate does not need to fire" — that is a bypass rationalization the gate is designed to prevent. When the resolution path genuinely differs based on whether the client is self-hosted or WiseCloud-hosted, the hosting model must be confirmed before drafting. An if/then response is not a substitute for a confirmed hosting model. Stop immediately and ask the user for the hosting model. Root cause: CS02398076 (July 2026) — the SQL password reset path for Customize User Repository Objects in a TST database differs between WiseCloud-hosted and self-hosted environments; the investigation proceeded without confirming the hosting model, and the correct path could not be determined until the user supplied the hosting model mid-investigation.
+
 ### Work item and WTA research
 
 Before asserting how a CargoWise feature works, how an output is generated, or why a rejection or error is occurring, run a WI search using `mcp_ediprod_filter-workitems` (or a WTA search) to confirm the current behavior. Product behavior can be changed, extended, restricted, or removed by work items without any visible change to the UI or field labels. A plausible understanding of how a feature should work is NOT a verified understanding of how it currently works. This is a mandatory investigation step.
