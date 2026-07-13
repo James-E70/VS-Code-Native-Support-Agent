@@ -16,7 +16,7 @@ Conduct a Kibana GlobalSearch server-side investigation for a WiseCloud performa
 
 ## Investigation Steps
 
-Run all ES|QL queries via the Kibana REST API (`page.evaluate` + `fetch`), not the browser editor. See the repo memory file for the exact fetch pattern and header requirements.
+Run all ES|QL queries via the Kibana REST API (`page.evaluate` + `fetch`), not the browser editor. Use the `internal/search/esql` endpoint with `{ params: { query: '...' } }` body format — the old `api/console/proxy` endpoint is disabled in Kibana 9.x. See `.github/guides/kibana-performance-investigation.md` for the exact fetch pattern and all field references.
 
 Step 1 — Confirm the physical SQL server FQDN for the client's license code by checking the `srdh.server` field in the performance log. The CW DNS alias (`CWCODE.db.wisegrid.net`) does not match the indexed hostname.
 
@@ -33,7 +33,9 @@ Step 5 — Find very slow completed operations (`srdh.duration >= 30000 AND srdh
 
 Step 6 — Narrow to 15-minute buckets to pinpoint the exact start and end time of the blocking window.
 
-Step 7 — Check the SQL Server error log (`logs-microsoft_sqlserver.log-wtg`) for the physical server during the same window. Look for Error 17830 (connection resets), deadlock events, or maintenance operations.
+Step 7 — Check the SQL Server error log (`logs-microsoft_sqlserver.log-wtg`) for the physical server during the same window. Look for Error 17830 (connection resets), deadlock events, or maintenance operations. **Note:** this index is not available in the APAC wisecloudsupport space — skip if it returns Unknown index.
+
+Step 8 (single-user lag only) — If the incident reports lag for one specific user while others are unaffected, check the RD Gateway throughput log (`logs-cargowise.rdgateway.userstats-wtg`). Compare `srdg.NumberOfKilobytesReceived` per 5-minute interval between the affected user and other users on the same session host. A 10× or greater deficit for the affected user confirms a client-side bottleneck (old PC, degraded WiseCloud client) — not a server-side issue. See the guide for query templates.
 
 ## Evidence to Surface
 
@@ -44,6 +46,7 @@ At minimum, confirm and report:
 - Number of distinct session hosts affected
 - Escalating or burst pattern (by 15-minute bucket)
 - Build version (from `CWProductVersion` field in performance log if available, or from the incident record)
+- For single-user lag: RD Gateway KB received/sent totals for the affected user vs at least one unaffected user on the same session host
 
 ## Output
 
