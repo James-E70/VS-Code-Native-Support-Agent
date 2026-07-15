@@ -23,6 +23,10 @@ This file contains repository-tracked workflow guardrails that should remain ali
 - Root cause: CS02341945 (May 2026) — check was conditional on user phrasing rather than incident title. CS02383547 (July 2026) — client re-open post included "macro names"; trigger check only covered title/description, not eConversation posts, so the skill was not loaded.
 - If the incident mixes macro work with other support investigation, apply the macro skill to the macro portion and keep the rest of the response aligned with the active support task.
 
+## Duplicate Incident Check
+
+- DUPLICATE INCIDENT CHECK: After retrieving the incident details, use `mcp_ediprod_filter-incidents` with `reportedOrgCode: ["<org_code>"]` and open status codes to check whether the same client has any other open incidents covering the same issue. If a matching open incident is found, retrieve it with `mcp_ediprod_get-job-details`, review its conversation and diagnostic evidence, and determine whether the current incident should be consolidated onto the older one rather than investigated in parallel. Root cause: CS02398693 (July 2026) — Navia Logistics had an older open incident CS02392925 on the identical shipment freeze issue, with the same hang debug and screenshot attached to both; the investigation proceeded without checking for org duplicates, resulting in parallel work already underway on CS02392925.
+
 ## Attachment Review Guardrails
 
 - Before drafting any client-facing response, every eDocs file currently listed on the incident must have had a read attempt via `mcp_ediprod_read-file`. This applies to all files in the attached documents table — not only those added in the most recent client update. When a client adds new attachments, read them in addition to, not instead of, all previously existing attachments.
