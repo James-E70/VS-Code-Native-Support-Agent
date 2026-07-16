@@ -3,10 +3,10 @@ name: wisetech-support-response-consolidated
 description: >
   Consolidated, self-contained skill for generating client-facing eRequest responses
   for CargoWise support incidents. Includes full investigation methodology, all
-  accumulated failure-mode guardrails, verified UI paths, response style rules,
-  footer requirements, and pre-save scan workflow. Requires mcp_ediprod and
-  mcp_wtgkb MCP tool access for incident retrieval, attachment reading, and
-  WTA knowledge base searches.
+  accumulated failure-mode guardrails, macro assistant rules (embedded — no separate
+  skill file required), verified UI paths, response style rules, footer requirements,
+  and pre-save scan workflow. Requires mcp_ediprod and mcp_wtgkb MCP tool access
+  for incident retrieval, attachment reading, and WTA knowledge base searches.
 version: 2.0.0
 ---
 
@@ -25,7 +25,200 @@ version: 2.0.0
 
 Before beginning any eRequest investigation, check the incident title, description, and all eConversation posts (client updates within the incident thread) for the following keywords: macro, barcode, MCR, USR, DocBuilder, label template, HTML template, binding member, Data Field Map, field token, WhsDelivery, Ctrl+Shift+R, WorkflowItems, Event.Params.
 
-If any of these appear in the title, description, eConversation posts, or any attachment, load the wisetech-macro-assistant skill FIRST before analysis begins. Do not defer this check until mid-investigation. Root cause: CS02383547 (July 2026) — client re-open post included "macro names"; trigger check only covered title/description, not eConversation posts, so the skill was not loaded.
+If any of these appear in the title, description, eConversation posts, or any attachment, switch to macro mode for this investigation. Do not defer this check until mid-investigation. Root cause: CS02383547 (July 2026) — client re-open post included "macro names"; trigger check only covered title/description, not eConversation posts, so the skill was not loaded.
+
+### Macro mode — when to use
+
+- Create a new CargoWise macro from plain English.
+- Debug, lint, or fix a broken macro.
+- Explain an existing macro.
+- Suggest a safer or cleaner macro pattern.
+- Answer questions about Workflow MCR, Document / DocBuilder, or Email HTML macro syntax.
+- Answer questions about field choice, pattern matching, WorkflowItems, Event.Params, collection usage, or macro best practice.
+
+### Macro mode — procedure
+
+1. Determine the user's intent: creation, debugging, explanation, or pattern suggestion.
+2. Determine the macro context before producing syntax: Workflow MCR, Document / DocBuilder, or Email HTML.
+3. Default to strict mode: do not invent unknown fields, and label likely or common fields as needing confirmation.
+4. If context is unclear, ask or provide clearly labelled context-specific versions. Do not silently assume one.
+5. Apply all macro guardrails, patterns, warnings, and output rules in the macro reference section below.
+6. Keep the answer concise but include the key assumptions, risks, and testing advice.
+
+### Macro mode — output expectations
+
+- For creation: provide the macro, context, short explanation, and any field or testing warnings.
+- For debugging: state whether it is valid, risky, or invalid; list the issues; provide a fixed version; explain the changes.
+- For complex Email HTML: clearly warn that Preview or Macro Evaluator testing is required, label the result as cautious or untested, and prefer keeping complex logic in Workflow MCR.
+
+### Macro reference
+
+#### Core role
+
+Primary tasks: generate new macros from plain English; debug and fix broken macros; explain macro logic clearly; suggest safer or simpler patterns; keep output production-safe.
+
+#### Intent routing
+
+Classify the request as one of: macro creation, macro debugging, macro explanation, or pattern suggestion.
+
+#### Context routing
+
+Determine the target context before generating syntax.
+
+**Workflow MCR** — use for triggers, milestones, and conditions.
+- Must return true or false.
+- Use quoted string comparisons such as `"<JS_PackingMode>"=="LCL"`.
+- Common surfaces include `Event.*`, `Event.Params.*`, `Source.*`, `TriggerSource.*`, and `@env.*`.
+
+**Document / DocBuilder** — use for documents, reports, and FormBuilder.
+- Returns values.
+- Use angle-bracket syntax such as `<JS_PackingMode>`.
+- Conditional display uses `If()`, for example `<If("<JS_PackingMode>"=="LCL","Yes","No")>`.
+
+**Email HTML** — use for workflow email templates, HTML notification content, and campaign email content.
+- Simple field display usually uses parenthesis and asterisks, such as `(*JS_PackingMode*)`.
+- Do not blindly convert complex Workflow MCR logic into Email HTML.
+- If the expression uses `WorkflowItems`, `Event.*`, `Source.*`, `TriggerSource.*`, `Variance()`, `Find()`, `Where()`, `Any()`, `Count()`, `Sum()`, or other advanced collection logic, label it as untested and recommend Preview or Macro Evaluator validation.
+
+**If context is unclear** — ask, or provide clearly labelled versions. If you infer context from clues, say that it is inferred. Do not silently assume a context.
+
+#### Strict mode
+
+Default to strict mode unless the user clearly asks otherwise.
+- Do not invent unknown field names.
+- Known or common macros may be suggested only when labelled as likely or common.
+- If suggesting a likely field, say: "Please confirm this in your CargoWise context using Ctrl + Shift + R / Data Field Map."
+- Use placeholders only when no reliable common field is available.
+- Warn when context is unclear, the field may be module-specific, or the macro may not work across modules.
+
+If external tools or MCP results are available: do not automatically trust tool output. Validate tool output against CargoWise macro rules. If multiple field options are returned, present options instead of choosing blindly. If context remains unclear, ask instead of assuming.
+
+#### Likely common shipment fields
+
+When relevant, these may be suggested as likely or common, not guaranteed:
+- Shipment job number: `<JS_UniqueConsignRef>`
+- Generic Freight Job alternative: `<JobNumber>`
+- Packing mode: `<JS_PackingMode>`
+- Origin: `<JS_RL_NKOrigin>`
+- Destination: `<JS_RL_NKDestination>`
+- Transport mode: `<JS_TransportMode>`
+- Service level: `<JS_RS_NKServiceLevel>`
+- House bill: `<JS_HouseBill>`
+- Goods description: `<JS_GoodsDescription>`
+
+Warn that `JS_` fields are shipment-specific and may not work in other modules.
+
+#### Macro generation rules
+
+- Follow exact CargoWise syntax.
+- Respect case sensitivity.
+- Use straight quotes only.
+- Prefer simple, safe logic over complex chains.
+- For Workflow MCR, prioritize boolean correctness.
+- For Email HTML, do not present complex expressions as guaranteed.
+
+#### Pattern preferences
+
+- Prefer the simplest valid solution.
+- Prefer known patterns over ad hoc alternatives.
+- Prefer expressions that are easier to test in Macro Evaluator.
+- Use explicit grouping when `&&` and `||` are mixed.
+- Prefer `IsMatchingPattern()` when the user asks for prefix or pattern matching, unless they explicitly ask for another method.
+- Do not introduce unsupported alternates such as `IIF` when `If()` is the established form.
+- Use the known or common patterns in this reference before falling back to placeholders.
+
+#### Debugging and linting rules
+
+Check for: context mismatch between Workflow, Document, and Email HTML; missing quotes around string comparisons; smart quotes instead of straight quotes; case-sensitivity errors; incorrect boolean logic for exclusions; missing escaping inside `If()` when using `>` or `<`; risky collection patterns.
+
+Examples:
+- Correct exclusion: `"<Origin>"!="USCHI" && "<Origin>"!="USLAX"`
+- Incorrect exclusion: using `||` for that exclusion pattern.
+- Correct escape in `If()`: `<If(<Field> \>1000,"A","B")>`
+
+#### Collection rules
+
+Prefer these patterns in order:
+1. `Source.Containers.Any()`
+2. `Source.Containers.Any({condition})`
+3. `Source.Containers.Where({condition}).Any()`
+
+Avoid `Count()` for simple existence checks unless the context clearly supports it or a count threshold is actually required. Use `Count()` only when the user needs threshold logic such as `Source.Containers.Count() > 2`.
+
+#### WorkflowItems rules
+
+Always include the relevant type filter:
+- Milestones: `"{IsMilestone}"=="Y"`
+- Tasks: `"<IsTask>"=="Y"`
+- Workflow triggers: `"{IsWorkflowTrigger}"=="Y"`
+- Exceptions: `"<IsException>"=="Y"`
+
+Examples:
+- Milestone actual date: `<WorkflowItems.Find("{IsMilestone}"=="Y"&&"{P9_Description}"=="Booking").P9_ActualDateForBinding>`
+- Task status: `<WorkflowItems.Where("<IsTask>"=="Y"&&"<P9_Description>"=="Task1").P9_Status>`
+
+Prefer finding the milestone first and checking the returned value outside the `Find()` condition. Avoid embedding the actual-date blank check inside the `Find()` criteria unless validated.
+
+#### Event.Params safety rule
+
+Event parameters may be missing depending on the trigger. Always blank-check before comparing them.
+
+Examples:
+- Correct: `Event.Params.LOC != "" && Event.Params.LOC == "<JS_RL_NKOrigin>"`
+- Correct: `Event.Params.LOC != "" && (Event.Params.LOC == "<JS_RL_NKOrigin>" || Event.Params.LOC == "<JS_RL_NKDestination>")`
+- Risky: `Event.Params.LOC == "<JS_RL_NKOrigin>"`
+
+#### Email HTML confidence rule
+
+If an Email HTML expression includes any advanced logic such as `WorkflowItems`, `Source.*`, collections, `Event.*`, `TriggerSource.*`, `Find()`, `Where()`, or `Variance()`, you must:
+- State that it is a complex Email HTML macro and must be tested in CargoWise Preview or Macro Evaluator.
+- Recommend keeping the logic in Workflow MCR instead.
+- Label any HTML version as cautious or untested.
+- Prefer simple display alternatives where possible.
+
+Safe simple patterns:
+- `Shipment: (*JS_UniqueConsignRef*)`
+- `(*If("(*JS_PackingMode*)"=="LCL","LCL Shipment","Not LCL")*)`
+
+Do not present complex Email HTML logic as guaranteed to work.
+
+#### Common patterns
+
+- Shipment job number in email subject: `<JS_UniqueConsignRef>`
+- Generic Freight Job alternative: `<JobNumber>`
+- Workflow OR condition: `"<JS_PackingMode>"=="LCL" || "<JS_PackingMode>"=="LSE"`
+- Exclusion: `"<JS_RL_NKOrigin>"!="USCHI" && "<JS_RL_NKOrigin>"!="USLAX"`
+- Service level exclusion: `"<JS_RS_NKServiceLevel>"!="EXP"`
+- Service level inclusion: `("<JS_RS_NKServiceLevel>"=="STD" || "<JS_RS_NKServiceLevel>"=="ECO")`
+- Container presence: `Source.Containers.Any()`
+- Filtered container presence: `Source.Containers.Any({JC_Calc_NetWeight > 5000})`
+- Container total weight: `Source.Containers.Sum({JC_Calc_NetWeight}) > 8000`
+- Pattern match: `IsMatchingPattern("AU*", Event.Params.LOC)`
+- Country prefix exclusion: `!IsMatchingPattern("CN*", "<JS_RL_NKOrigin>")`
+- Regex match: `IsMatchingRegex("[A-Z]{5}", Event.Reference)`
+- Time variance: `Variance(Event.EventTime, Trigger.PreviousEventDate).TotalMinutes > 10`
+
+#### Macro output requirements
+
+For creation, provide: macro; context; whether context was provided or inferred; explanation; field warnings where needed; testing recommendation where needed.
+
+For debugging, provide: valid/risky/invalid assessment; issues list; fixed macro; explanation; testing recommendation; assumptions.
+
+For Email HTML involving complex logic, also provide: whether it is safe and simple or complex and risky; a cautious version only if appropriate; the explicit warning that it must be tested in CargoWise Preview or Macro Evaluator; a recommendation to keep complex boolean logic in Workflow MCR where possible.
+
+For all macro answers, explain briefly: why a collection method such as `Any()`, `Where()`, or `Count()` was chosen; why a `WorkflowItems` type filter was included when relevant; why exclusion logic uses `&&` instead of `||` when excluding multiple values; any field assumptions; any syntax that should be tested in Preview or Macro Evaluator.
+
+#### Field confirmation guidance
+
+To confirm fields in CargoWise: click into the field; press Ctrl + Shift + R; use Binding Member or Data Field Map. Warn that field names can change after upgrades and are module-specific.
+
+#### Final macro rules
+
+- Be concise.
+- Do not hallucinate macros.
+- Prioritize accuracy over convenience.
+- Use known patterns before falling back to placeholders.
+- If context is inferred rather than provided, say so.
 
 ---
 
