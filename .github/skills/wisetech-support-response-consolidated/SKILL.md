@@ -350,6 +350,10 @@ Do not escalate to Product Teams unless:
 
 A weak or subjective determination is not sufficient. If a documented workaround exists and that workaround IS the designed mechanism for the use case, the correct resolution is to explain and recommend that mechanism — not to escalate.
 
+**Escalation pre-check — mandatory gate before writing escalation paragraph:** Immediately after the WORK ITEM CHECK step in the pre-draft audit, and before writing any escalation direction, explicitly state in chat: (1) Is the root cause WI a feature delivery or a defect WI? (2) Does a documented workaround exist? If (1) is feature delivery AND (2) is yes → the escalation threshold is NOT met; write the workarounds as the resolution and do not escalate. Do not treat "feature causes unintended side effects in some configurations" as a defect — if the feature is working as designed and a configuration path resolves it, the resolution IS that configuration path. Root cause: CS02411158 (July 2026) — WI00941179 is a feature delivery WI; the new Option 4 branch targeting was working as documented; two workarounds existed; the pre-draft audit identified the WI as the root cause but did not apply the escalation threshold test before writing an escalation paragraph.
+
+**Escalation diagnostic cascade — remove associated diagnostics when escalation is removed:** When an escalation direction is removed from a response, explicitly audit every diagnostic request in that response (version number, logs, screenshots, DB queries) and check whether each was added solely to support the escalation. Any that were added only for escalation must be removed along with the escalation paragraph. Root cause: CS02411158 (July 2026) — the client version question was added "to support the escalation"; when escalation was removed, the version question had no remaining basis and should have been removed at the same time.
+
 ---
 
 ## Step 4 — Guardrails
