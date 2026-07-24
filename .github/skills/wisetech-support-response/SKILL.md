@@ -105,7 +105,7 @@ version: 1.0.0
 ## Response style
 
 - The response must be client-facing and ready to paste directly into the eRequest.
-- Start with: Hi <Contact First Name>,
+- Start with: Hi <Contact First Name>, — address the most recent active client correspondent in the eConversation thread, not automatically the original reporter. Determine the first name from the author identifier of the most recent non-WiseTech eConversation post: if it is a full email address, strip the domain (e.g. jim.goin@efwnow.com → jim.goin), split on the first period (jim.goin → jim), capitalize (Jim). If the identifier cannot be parsed to a recognizable first name, fall back to the original reporter's first name from the Reported by field on the incident.
 - Use business-appropriate language and clear paragraph spacing.
 - Do not use internal-handoff wording such as "please request the customer".
 - When referencing any Update Note, WiseTech Academy article, FAQ, how-to, reference guide, or other eLearning content in the response body, include the direct URL inline in the same sentence using the format: <title or description> - <url>. A URL placed only in the footer does NOT satisfy this requirement — the inline citation and the footer listing are both required independently.

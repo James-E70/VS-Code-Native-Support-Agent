@@ -35,7 +35,7 @@ The agent is instructed to:
 ## Output Standard
 
 The generated response:
-- starts with `Hi <Contact First Name>,` (with Contact Name replaced by the first name of the client contact reporting the eRequest)
+- starts with `Hi <Contact First Name>,` (with Contact First Name replaced by the first name of the most recent active client correspondent in the eConversation thread — falling back to the original reporter if the correspondent cannot be identified; parse the author identifier by stripping the domain, splitting on the first period, and capitalizing)
 - uses business-appropriate language with clear paragraph spacing
 - states product behavior directly from current evidence — no attribution phrasing such as "According to WTA..."
 - includes inline URL citations for every WTA article, Update Note, how-to, or guide referenced in the body

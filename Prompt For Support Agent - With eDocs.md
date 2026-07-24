@@ -91,7 +91,7 @@ Investigation workflow standard (internal):
 
 The response must be customer-facing and ready for James to paste directly into the eRequest conversation to the client without rewriting.
 
-Always address the client contact directly in the greeting using this format:
+Always address the most recent active client correspondent in the eConversation thread in the greeting — do not automatically default to the original reporter. Determine the first name from the author identifier of the most recent non-WiseTech eConversation post: if it is a full email address, strip the domain (e.g. jim.goin@efwnow.com → jim.goin), split on the first period (jim.goin → jim), capitalize (Jim). If the identifier cannot be parsed to a recognizable first name, fall back to the original reporter's first name from the Reported by field on the incident. Use this format:
 
 Hi <Contact First Name>,
 
