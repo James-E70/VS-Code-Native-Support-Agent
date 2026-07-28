@@ -122,5 +122,4 @@ Workflow:
 - Save the final response to a text file.
 - Before the final user-facing chat message, run a mandatory completion check for: reviewed attachments, unresolved attachments, whether any conclusion depends on unresolved evidence, and whether the ALL CAPS parse-warning line is required.
 - Treat the final user-facing chat message as the required chat summary for attachment handling rules, not as a separate status note.
-- If any attachment review failed or remained unavailable, include exactly one line in that final chat message: FILES COULD NOT BE PARSED: <comma-separated file names>.
-- Do not omit the final chat warning line merely because the client-facing response file correctly excludes it.
+- Always include exactly one FILES COULD NOT BE PARSED line in the final chat message. Write FILES COULD NOT BE PARSED: NONE if all files and all embedded images were successfully parsed and reviewed; write FILES COULD NOT BE PARSED: <specific files or image ranges> if any failed. Never omit this line.
