@@ -60,15 +60,13 @@ Footer content:
     sync-repo-changes.prompt.md    # Prompt for propagating rule changes across all relevant files
   skills/
     wisetech-macro-assistant/      # Skill for macro creation, debugging, DocBuilder, barcode, and label questions
-    wisetech-support-response/     # Skill for generating client-facing eRequest responses
-    wisetech-support-response-consolidated/  # Self-contained consolidated version of the above
+    wisetech-support-response-consolidated/  # Self-contained skill for generating client-facing eRequest responses (with embedded macro rules)
 shareable-prompts/
   Kibana_Performance_Investigation.prompt.md  # Shareable prompt for Kibana performance investigation workflow
   Triage_eRequest.prompt.md        # Shareable prompt for triaging eRequests
 .vscode/
   settings.json                    # Local workspace settings
 SPSS PROMPT.md                     # Primary active prompt — authoritative source for all investigation and guardrail rules
-Prompt For Support Agent - With eDocs.md  # Legacy detailed operating prompt (retained for reference)
 support-agent-workflow.md          # Repository-tracked workflow notes mirroring operating guardrails
 .gitignore                         # Excludes generated response and escalation .txt artefacts from tracking
 ```

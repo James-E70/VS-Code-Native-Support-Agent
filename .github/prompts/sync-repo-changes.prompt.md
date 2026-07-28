@@ -12,7 +12,6 @@ Before committing, review each of the following locations and update any that do
 |---|---|
 | `SPSS PROMPT.md` | Primary active prompt. The authoritative source for investigation, guardrail, and workflow rules used during live support runs. |
 | `.github/copilot-instructions.md` | Auto-loaded workspace instructions. Must always mirror `SPSS PROMPT.md` exactly — update this file whenever SPSS PROMPT.md changes so that agent sessions pick up the latest rules without manual file attachment. |
-| `.github/skills/wisetech-support-response/SKILL.md` | Skill file loaded when generating client-facing eRequest responses. Must stay aligned with SPSS PROMPT.md on response style, footer format, and workflow gates. |
 | `support-agent-workflow.md` | Repository-tracked workflow reference. Keep in sync with SPSS PROMPT.md for any rule that affects investigation quality, evidence handling, or response production. |
 | `.github/prompts/support-agent.prompt.md` | Reusable prompt for starting support investigations. Update if the change affects how investigations are initiated or how attachments/incidents are handled. |
 | `/memories/support-agent-preferences.md` (user memory) | Persistent cross-workspace agent preferences. Update if the change is a behavioral rule that should apply in all workspaces and conversations, not just this repo. |
