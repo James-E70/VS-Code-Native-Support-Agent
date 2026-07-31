@@ -1,3 +1,6 @@
+# Backup files (keep local only)
+.github/copilot-instructions-backup*.md
+
 # Generated eRequest response and escalation artifacts
 CS*.txt
 CS*.b64
