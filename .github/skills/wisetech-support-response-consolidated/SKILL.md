@@ -550,6 +550,8 @@ Before calling any file-creation tool to write the response .txt file, explicitl
 
 5. CONFIGURATION EXISTENCE CHECK — For every specific CargoWise field, setting, or configuration step recommended as a fix, state in chat what source (WTA article URL, reviewed screenshot, or prior verified product knowledge) confirms it exists and is accessible in the product UI. For steps involving a combination of field values, confirm the specific combination is valid — not just each field individually. Log output alone does not satisfy this check. Tab visibility in a screenshot alone does NOT confirm what fields are on a tab — tab contents must be confirmed via a WTA article describing those fields or a screenshot showing the tab's interior.
 
+6. EXTERNAL URL LINE CHECK — If any external URL fetch failed during the investigation, confirm that a separate `EXTERNAL URL COULD NOT BE PARSED: <urls>` line is present in the planned completion check output. Do NOT accept an inline status note within the EXTERNAL URLS CHECKED line as a substitute. If any fetch failed and this separate line is missing, add it before creating the .txt file.
+
 ---
 
 ## Step 9 — Save and Completion Check
@@ -570,3 +572,4 @@ Before calling any file-creation tool to write the response .txt file, explicitl
 - If any external URL fetch failed or returned unreadable content during the investigation, include exactly one line in the final chat response: `EXTERNAL URL COULD NOT BE PARSED: <comma-separated URLs>`.
 - Never omit the EXTERNAL URL COULD NOT BE PARSED line merely because the client-facing response correctly excludes it.
 - In the final chat response, include a line listing all external URLs that were successfully fetched during the investigation: `EXTERNAL URLS CHECKED: <comma-separated URLs>`, or `EXTERNAL URLS CHECKED: NONE` if no external fetches were performed.
+- EXTERNAL URL COULD NOT BE PARSED — MANDATORY SEPARATE LINE: These two URL lines are SEPARATE required output lines — do NOT collapse both into a single `EXTERNAL URLS CHECKED` line with inline status notes (e.g. "(404)" or "(failed)"). If all fetches succeeded, omit the EXTERNAL URL COULD NOT BE PARSED line entirely. The Step 8 pre-save scan must confirm the EXTERNAL URL COULD NOT BE PARSED line is present as its own line whenever any fetch failed. Root cause: CS02418951 (July 2026) — the 404 on the service-codes URL was noted inline in EXTERNAL URLS CHECKED but the mandatory separate EXTERNAL URL COULD NOT BE PARSED warning line was not written.
