@@ -19,6 +19,8 @@ The agent is instructed to:
 - treat every eRequest as a fresh investigation based on the current incident description, latest client updates, and attached evidence
 - check for duplicate open incidents from the same organisation before beginning a new investigation
 - search for related Work Items in the WiseTech product backlog as part of every investigation — if a matching open or closed Work Item is found, the agent incorporates its status, fixed build, and any documented workaround directly into the response
+- fire a mandatory Post-Attachment Root Cause Gate after all attachments are reviewed and before any hypothesis-forming WTA search: searches for a matching WI using any exact error string reported on the eRequest, as well as the functional failure mode described in plain language, checks cross-org incident patterns via the WI's attached incidents or a keyword filter search, and writes the results in chat before any investigation direction is adopted
+- when a WI or similar incident match is returned by the root cause gate, treat it as a hypothesis — not a confirmed diagnosis: verify any specific error string, failure output (log message, error code, behavioral signature), or failure scenario described in the WI is explicitly present or clearly reflected in the current evidence before anchoring on it; if the evidence would not independently lead to the same conclusion without the WI match, verification is incomplete
 - avoid repeating checks already proven by the latest evidence
 - prefer exact error text, Workflow and Tracking events, exported XML, logs, and other machine-verifiable artefacts over generic screenshots when they are more decisive
 - inspect direct image attachments visible in the incident's eDocs
@@ -102,6 +104,7 @@ If you want a standalone version of the response-generation rules without the fu
 - The agent automatically checks whether any recommended client-facing step is feasible for the client's hosting model and access level before including it in the response — this is part of the agent's built-in behaviour and does not require any action from the user.
 - Any client-facing output should be reviewed by a support specialist before sending.
 - The `wisetech-macro-assistant` skill is loaded automatically via the instruction file whenever a macro-related keyword is detected in the incident title, description, or any eConversation post. It does not need to be manually invoked.
+- WI and similar incident matches from the Post-Attachment Root Cause Gate are hypotheses, not confirmed diagnoses — surface-level symptom similarity is not sufficient. The agent verifies that any error string, failure output, or failure scenario in the WI is present or clearly reflected in the current incident's evidence before adopting it as the investigation direction.
 
 ## Intended Audience
 
