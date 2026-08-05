@@ -314,6 +314,8 @@ KNOWN VERSION GATE BYPASS PATTERN — IF/THEN COVERAGE: If you find yourself rea
 
 VERSION GATE — TAN/UPDATE NOTE BUILD DEPENDENCY: When a TAN or Update Note specifies a minimum CargoWise DPR or GPR build version (e.g. "available in DPR 26.5.26.0 / GPR 26.5.19.235"), confirming whether the client is on that build or later IS a version dependency. The VERSION GATE must fire before citing that TAN or Update Note as the confirmed root cause.
 
+VERSION GATE — CLIENT VERSION QUESTION AS GATE INDICATOR: If at any point you find yourself about to ask the CLIENT for their CargoWise build version in the response — for any reason, including "useful for the product team" — stop immediately and ask the support specialist in chat first. A version question directed at the client is always a gate miss. The gate fires in chat, not in the client response. If the version is not driving any decision (e.g. no WI found), remove the question entirely rather than redirecting it to the client. Root cause: CS02424588 (August 2026) — version question added to client response as a "product team reproduction reference" without stopping to ask James first; removed when challenged, confirming it was not a legitimate diagnostic.
+
 ### Hosting gate
 
 If at any point during the investigation the next step or conclusion depends on knowing whether the client is self-hosted or WiseCloud-hosted (e.g. determining available menu options, Kibana access, infrastructure-level steps, or feature availability that differs by hosting model), stop the investigation immediately and ask the user (the support specialist in chat) to confirm the hosting model before continuing. Do NOT ask the client in the response — the gate interrupts the agent workflow, not the client conversation.
