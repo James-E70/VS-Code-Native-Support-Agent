@@ -29,7 +29,7 @@ The agent is instructed to:
 - treat any skipped, unsupported, unreadable, or unparsed attachment as an incomplete evidence review and surface `FILES COULD NOT BE PARSED: ...` in the chat summary
 - never provide unverified UI paths, fields, or assumptions
 - automatically route macro-related incidents to the `wisetech-macro-assistant` skill before analysis begins — this skill is included in this repository under `.github/skills/wisetech-macro-assistant/` and covers macro creation, debugging, DocBuilder expressions, and macros for Workflow and Emails
-- Automatically use the Kibana GlobalSearch investigation workflow (`.github/guides/kibana-performance-investigation.md`) when a WiseCloud-hosted incident involves SQL lock timeouts, force-close events on save, slow performance across multiple users, or system-wide blocking — the shareable prompt at `shareable-prompts/Kibana_Performance_Investigation.prompt.md` provides a ready-to-use entry point for this workflow
+- Automatically use the Kibana GlobalSearch investigation workflow (`.github/guides/kibana-performance-investigation.md`) when a WiseCloud-hosted incident involves SQL lock timeouts, force-close events on save, slow performance across multiple users, or system-wide blocking — the prompt at `.github/prompts/Kibana_Performance_Investigation.prompt.md` provides a ready-to-use entry point for this workflow
 - verify UI paths against WTA user documentation before including them in any client-facing response
 - fire a hard VERSION NUMBER GATE when the next investigation step depends on knowing the client's CargoWise build
 - fire a hard HOSTING GATE when the next investigation step differs between self-hosted and WiseCloud-hosted environments
@@ -60,12 +60,11 @@ Footer content:
   prompts/
     support-agent.prompt.md        # Reusable prompt for starting support investigations
     sync-repo-changes.prompt.md    # Prompt for propagating rule changes across all relevant files
+    Kibana_Performance_Investigation.prompt.md  # Prompt for Kibana performance investigation workflow
+    Triage_eRequest.prompt.md      # Prompt for triaging eRequests
   skills/
     wisetech-macro-assistant/      # Skill for macro creation, debugging, DocBuilder, barcode, and label questions
     wisetech-support-response-consolidated/  # Self-contained skill for generating client-facing eRequest responses (with embedded macro rules)
-shareable-prompts/
-  Kibana_Performance_Investigation.prompt.md  # Shareable prompt for Kibana performance investigation workflow
-  Triage_eRequest.prompt.md        # Shareable prompt for triaging eRequests
 .vscode/
   settings.json                    # Local workspace settings
 SPSS PROMPT.md                     # Primary active prompt — authoritative source for all investigation and guardrail rules
@@ -91,9 +90,9 @@ Then open and use the agent:
 6. Paste or type the incident number (e.g. `CS02407844`) into the chat. The agent will retrieve the incident and attached evidence from ediProd directly.
 7. Review the investigation summary in chat, then open the drafted response `.txt` file saved to the workspace folder and review it before sending or uploading to eDocs.
 
-To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, use `shareable-prompts/Kibana_Performance_Investigation.prompt.md`.
+To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, type `/` in Copilot Chat and select **Kibana Performance Investigation**.
 
-To triage an eRequest, use `shareable-prompts/Triage_eRequest.prompt.md`.
+To triage an eRequest, type `/` in Copilot Chat and select **Triage eRequest**.
 
 If you want a standalone version of the response-generation rules without the full repository setup, the `.github/skills/wisetech-support-response-consolidated/SKILL.md` file is self-contained and can be downloaded and attached independently to any Copilot Chat session.
 

@@ -275,3 +275,25 @@ Root cause: CS02390824 (July 2026) — 58 confirmed lock timeout errors on `Stor
 - For Quick Booking or shipment-style UXML imports where AddressOverride is present but overridden address blocks are not saved, check whether the integration runs under an EDI Message Sender/Staff Proxy user and whether that user has `Allow {MISC} account details on Shipments`; if granting that right immediately restores the override, treat it as security-controlled behavior rather than an XML defect.
 - For air AMG incidents where AWB shows full lithium battery wording but FWB shows `LI BATT PI966/967/970`, treat as known CargoIMP/CargoWise abbreviation behavior rather than a transmission failure; advise OSI/Handling Information workaround if airline needs the full sentence electronically.
 - For Japan AFR amendment incidents after carrier ATD, first check the bill Release Status before asking for more evidence: post-ATD master or house bill changes are generally blocked unless the bill is HLD, DNL, or DNU.
+
+### CargoWise Next — Verified Menu Structure
+
+Source: Screenshots from CargoWise Next GP Release 26.5.26.646 (AU demo environment), captured 2026-08-07. The vast majority of items are available globally; country-specific additions appear within Customs and Accounting sub-menus when logged in to a company in that country. Old WTA content should be cross-checked against this structure; recent WTA content is reliable.
+
+Top-level menus: Operate | Manage | Maintain
+
+OPERATE sub-groups: Schedules; Forwarding (CFS/CTO, Forwarding, Order Manager); Customs (Customs, Customs Global); Transport (Land Transport, Port Transport, Transport Booking); Warehouse (Container Yard, Gate Management, Product Warehouse, Transit Warehouse); Liner & Agency; Ocean Carrier; Productivity Tools (Customer Service Tickets, Projects, Work Items).
+
+MANAGE sub-groups: Sales & Marketing; Tariffs & Rates (Tariffs & Rates, Universal Rates Service); Business Intelligence & Analytics; Workflow & Process (Planning, Workflow & Process); DocManager (Allocate eDocs, Create eDocs CD, Document Management Portal, eDocs Database Manager, Merge eDocs Databases, Reports); Receivables; Payables; Cash Book; Job Costing; General Ledger (General Ledger, GL Consolidations, Reporting Books); Budgets; Netting.
+
+MAINTAIN sub-groups: Master Data (MDM Administration, Organisation, Organisation Contacts, Person Intelligence, Reports); Reference Files (Airlines, Barcode Parsing, Barcode Validation, Carriers, Commodities, Compliance Lists, Containers, Currencies, Dangerous Goods, Document Types, Equipment, Exchange Rates, Facilities, and others); Sales & Marketing; Tariffs & Rates; Performance Management; Locations; Account (Apportionment Templates, Bank Accounts, Charge Codes, Creditor Groups, Debtor Groups, GL Accounts, Global Charge Codes, Import Data, Invoice Tax Messages, Tax ID, Tax Override Groups, WHT Tax ID, and others); Customs; Warehouse; Human Resources; Workflow Manager (Add On Rules, Events, Exception Types, Field Change Events, Workflow Templates, and others); EDI Messaging (Additional Event Context, Business Rule Engine, CW Connector, EDI Code Mapping, EDI Interchange, EDI Message, EDI Message Profile, Purpose Code); Archive Manager; User Admin (Active Users, Branches, Companies, Departments, Group, Resource Capabilities, Staff and Resources, and others); System (Email, Printing, Reports, Registry, Process Controllers, Service Tasks, License Usage, Upgrades, Update Notes Portal, and others).
+
+Verified paths confirmed from this structure:
+- Maintain > Master Data > Organisation ✓ (NOT Maintain > Reference Files > Organisation)
+- Maintain > Reference Files > Document Types ✓
+- Maintain > Workflow Manager > Workflow Templates ✓
+- Maintain > User Admin > Staff and Resources ✓
+- Maintain > System > Registry ✓ (NOT Manage > System > Registry)
+- Maintain > Account > Tax ID ✓
+- Maintain > Account > Invoice Tax Messages ✓ (NOT Manage > Account > Invoice Tax Messages)
+- EDI Messaging > EDI Message Sender Proxy Users is a Registry path, NOT a Maintain menu item — it does not appear as a menu item under Maintain > EDI Messaging.
