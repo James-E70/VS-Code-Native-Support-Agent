@@ -33,6 +33,7 @@ The agent is instructed to:
 - verify UI paths against WTA user documentation before including them in any client-facing response
 - fire a hard VERSION NUMBER GATE when the next investigation step depends on knowing the client's CargoWise build
 - fire a hard HOSTING GATE when the next investigation step differs between self-hosted and WiseCloud-hosted environments
+- **External Website Check functionality:** automatically fetch and verify any fact that is available on an external website, is date-sensitive or version-specific, and where getting it wrong would change the investigation conclusion — this includes customs authority tariff and declaration rules, tax authority rulings, third-party software navigation paths, and carrier or portal service status; if the URL cannot be retrieved, the agent flags it as an evidence gap rather than proceeding on assumption
 
 ## Output Standard
 
