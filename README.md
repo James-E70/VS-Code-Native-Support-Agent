@@ -87,14 +87,14 @@ Then open and use the agent:
 
 4. Open VS Code, go to **File > Open Folder**, and select the folder you just extracted.
 5. Open Copilot Chat — the workspace instructions in `.github/copilot-instructions.md` are loaded automatically.
-6. Paste or type the incident number (e.g. `CS02407844`) into the chat. The agent will retrieve the incident and attached evidence from ediProd directly.
-7. Review the investigation summary in chat, then open the drafted response `.txt` file saved to the workspace folder and review it before sending or uploading to eDocs.
+6. Paste or type the incident number (e.g. `CS02407844`) into the chat and press Enter/Send. The agent will retrieve the incident and attached evidence from ediProd directly.
+7. Review the investigation summary in chat, then open the drafted response `.txt` file saved to the workspace folder and review it before copying and sending to the client.
 
-To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, type `/` in Copilot Chat and select **Kibana-Performance-Investigation**.
+To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, type `/` in Copilot Chat and select **Kibana-Performance-Investigation**. Note that the Kibana investigation workflow is also invoked automatically during a standard investigation run when the agent determines it is warranted — the `/Kibana-Performance-Investigation` command is simply a manual entry point if you want to run it directly.
 
 To triage an eRequest, type `/` in Copilot Chat and select **Triage-eRequest**.
 
-To draft an internal escalation note after completing an investigation, type `/` in Copilot Chat and select **Draft-Escalation-Note**. The agent will generate a structured internal summary of the issue, evidence, and escalation rationale, and save it as a `.txt` file in the workspace folder.
+To draft an internal escalation note after completing an investigation, type `/` in Copilot Chat and select **Draft-Escalation-Note**. The agent will generate a structured internal summary of the issue, evidence, and escalation rationale, and save it as a `.txt` file in the workspace folder, which you can then copy and paste into the eRequest as an Internal Note or note against a Workflow Task.
 
 To remove old response and escalation `.txt` files from the workspace folder, type `/` in Copilot Chat and select **Clean-Incident-TXT-Files**. This is a useful end-of-day cleanup command to clear out the workspace folder of that day's generated response / escalation note `.txt` files.
 
