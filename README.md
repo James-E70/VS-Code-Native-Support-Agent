@@ -90,9 +90,13 @@ Then open and use the agent:
 6. Paste or type the incident number (e.g. `CS02407844`) into the chat. The agent will retrieve the incident and attached evidence from ediProd directly.
 7. Review the investigation summary in chat, then open the drafted response `.txt` file saved to the workspace folder and review it before sending or uploading to eDocs.
 
-To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, type `/` in Copilot Chat and select **Kibana Performance Investigation**.
+To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, type `/` in Copilot Chat and select **Kibana-Performance-Investigation**.
 
-To triage an eRequest, type `/` in Copilot Chat and select **Triage eRequest**.
+To triage an eRequest, type `/` in Copilot Chat and select **Triage-eRequest**.
+
+To draft an internal escalation note after completing an investigation, type `/` in Copilot Chat and select **Draft-Escalation-Note**. The agent will generate a structured internal summary of the issue, evidence, and escalation rationale, and save it as a `.txt` file in the workspace folder.
+
+To remove old response and escalation `.txt` files from the workspace folder, type `/` in Copilot Chat and select **Clean-Incident-TXT-Files**. This is a useful end-of-day cleanup command to clear out the workspace folder of that day's generated response / escalation note `.txt` files.
 
 If you want a standalone version of the response-generation rules without the full repository setup, the `.github/skills/wisetech-support-response-consolidated/SKILL.md` file is self-contained and can be downloaded and attached independently to any Copilot Chat session.
 
