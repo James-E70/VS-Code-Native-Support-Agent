@@ -1,4 +1,4 @@
-# eRequest-Investigation-Agent-for-VS-Code
+# eRequest Investigation Agent for VS Code
 
 VS Code native support-agent configuration for investigating CargoWise eRequests and drafting client-facing responses or internal escalation notes from current incident evidence.
 
@@ -82,7 +82,7 @@ Before you begin, you will need two things installed on your computer:
 
 Once both are installed, download this repository:
 
-3. Go to [https://github.com/James-E70/VS-Code-Native-Support-Agent](https://github.com/James-E70/VS-Code-Native-Support-Agent), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
+3. Go to [https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code](https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
 
 Then open and use the agent:
 
