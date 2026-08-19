@@ -1,4 +1,4 @@
-# VS-Code-Native-Support-Agent
+# eRequest-Investigation-Agent-for-VS-Code
 
 VS Code native support-agent configuration for investigating CargoWise eRequests and drafting client-facing responses or internal escalation notes from current incident evidence.
 
