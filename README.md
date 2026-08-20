@@ -83,7 +83,7 @@ Before you begin, you will need three things installed or configured:
 
 Once all three are set up, download this repository:
 
-4. Go to [https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code](https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
+4. Go to [the top of this page](https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
 
 Then open and use the agent:
 
