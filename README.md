@@ -85,7 +85,7 @@ Once all three are set up, download this repository:
 
 4. Go to [the top of this page](https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
 
-Then open and use the agent:
+Then open and use the agent (this requires that you are connected to the MCP servers):
 
 5. Open VS Code, go to **File > Open Folder**, and select the folder you just extracted.
 6. Open Copilot Chat — the workspace instructions in `.github/copilot-instructions.md` are loaded automatically.
