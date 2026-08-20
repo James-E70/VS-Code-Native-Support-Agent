@@ -75,21 +75,22 @@ support-agent-workflow.md          # Repository-tracked workflow notes mirroring
 
 ## How To Use In VS Code
 
-Before you begin, you will need two things installed on your computer:
+Before you begin, you will need three things installed or configured:
 
 1. **VS Code** — the free code editor this agent runs inside. Download it from [https://code.visualstudio.com/download](https://code.visualstudio.com/download) and run the installer.
 2. **GitHub Copilot Chat** — the AI extension for VS Code. Once VS Code is open, click the Extensions icon in the left sidebar (it looks like four squares), search for "GitHub Copilot Chat", and click Install. You will need an active GitHub Copilot licence to use it.
+3. **MCP Servers** — the agent relies on MCP (Model Context Protocol) servers to access ediProd incidents and the WiseTech Knowledge Base. Follow the setup steps at [https://github.com/WiseTechGlobal/WTG.AI.IL.Product/blob/main/setup-vscode-mcp/wtg-vscode-mcp/setting-up-mcp-vscode.md](https://github.com/WiseTechGlobal/WTG.AI.IL.Product/blob/main/setup-vscode-mcp/wtg-vscode-mcp/setting-up-mcp-vscode.md) to configure these before use.
 
-Once both are installed, download this repository:
+Once all three are set up, download this repository:
 
-3. Go to [https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code](https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
+4. Go to [https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code](https://github.com/James-E70/eRequest-Investigation-Agent-for-VS-Code), click the green **Code** button, and select **Download ZIP**. Extract the ZIP to a folder on your computer.
 
 Then open and use the agent:
 
-4. Open VS Code, go to **File > Open Folder**, and select the folder you just extracted.
-5. Open Copilot Chat — the workspace instructions in `.github/copilot-instructions.md` are loaded automatically.
-6. Paste or type the incident number (e.g. `CS02407844`) into the chat and press Enter/Send. The agent will retrieve the incident and attached evidence from ediProd directly.
-7. Review the investigation summary in chat, then open the drafted response `.txt` file saved to the workspace folder and review it before copying and sending to the client.
+5. Open VS Code, go to **File > Open Folder**, and select the folder you just extracted.
+6. Open Copilot Chat — the workspace instructions in `.github/copilot-instructions.md` are loaded automatically.
+7. Paste or type the incident number (e.g. `CS02407844`) into the chat and press Enter/Send. The agent will retrieve the incident and attached evidence from ediProd directly.
+8. Review the investigation summary in chat, then open the drafted response `.txt` file saved to the workspace folder and review it before copying and sending to the client.
 
 To start a Kibana performance investigation for a WiseCloud SQL lock or blocking incident, type `/` in Copilot Chat and select **Kibana-Performance-Investigation**. Note that the Kibana investigation workflow is also invoked automatically during a standard investigation run when the agent determines it is warranted — the `/Kibana-Performance-Investigation` command is simply a manual entry point if you want to run it directly.
 
